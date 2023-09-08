@@ -1,70 +1,67 @@
+// component
+import LeftSidebar from '@/components/LeftSidebar'
+import MainComponent from '@/components/MainComponent'
+import { BsSearch } from 'react-icons/bs'
 
-import Link from 'next/link'
-import { BiHomeCircle, BiUser } from 'react-icons/bi'
-import { BsBell, BsBookmark, BsEnvelope, BsTwitter, BsThreeDots } from 'react-icons/bs'
-import { HiOutlineHashtag } from 'react-icons/hi'
-
-
-
-const navigation_items = [
-  {
-    icon: BsTwitter
-  },
-  {
-    title: 'Home',
-    icon: BiHomeCircle
-  },
-  {
-    title: 'Explore',
-    icon: HiOutlineHashtag
-  },
-  {
-    title: 'Notifications',
-    icon: BsBell
-  },
-  {
-    title: 'Messages',
-    icon: BsEnvelope
-  },
-  {
-    title: 'Bookmarks',
-    icon: BsBookmark
-  },
-  {
-    title: 'Profile',
-    icon: BiUser
-  },
-]
 
 export default function Home() {
   return (
-    <div className="w-full h-full flex justify-center items-center relative">
-      <div className="w-full h-full relative flex">
-        <section className="fixed h-screen w-[275px] flex flex-col items-center justify-between text-white px-8">
-          <div className='w-full flex flex-col items-stretch h-full my-4 space-y-4'>
-            {navigation_items.map((item, i) => (
-              <Link href={`/${item?.title?.toLowerCase()}`} key={i} className={`${item.title && 'hover:bg-white/10'} transition duration-200 rounded-3xl py-2 pr-6 pl-3 flex items-center justify-start w-fit space-x-2 text-xl`}>
-                <span><item.icon /></span>
-                <p>{item?.title}</p>
-              </Link>
-            ))}
-            <button title='tweet' type='button' className='bg-blue-pry my-4 rounded-full p-4 text-xl font-semibold text-center hover:bg-opacity-80 transition duration-200'>Tweet</button>
+    <div className="relative w-full h-full flex justify-center items-center">
+      <div className="w-full min-h-screen relative flex">
+        <LeftSidebar />
+        <MainComponent />
+        <section className='sticky top-2 mt-2 flex flex-col space-y-4 h-screen min-w-[275px] max-w-[392px] w-full px-6 overflow-scroll'>
+          <div className='relative h-full w-full'>
+            <input
+              id='searchBox'
+              title='search twitter'
+              type="text"
+              placeholder='Search Twitter'
+              className='w-full h-full rounded-full outline-none border-0 bg-neutral-900/90 py-4 pl-14 pr-4 focus:border focus:border-blue-pry peer text-white'
+            />
+            <label htmlFor='searchBox' className='absolute top-0 left-4 h-full flex items-center justify-center text-gray-500 peer-focus:text-blue-pry'>
+              <BsSearch className='w-5 h-5' />
+            </label>
           </div>
-          <button title='profile' className='my-4 w-full hover:bg-white/20 bg-transparent rounded-full py-2 px-4 transition duration-200 flex items-center justify-between space-x-2'>
-            <div className='flex items-center space-x-2'>
-              <div className='rounded-full h-12 w-12 bg-slate-400'></div>
-              <div className='text-left'>
-                <p className='font-semibold text-sm'>dLuxKid</p>
-                <p className='text-xs font-normal'>@Marvellous</p>
-              </div>
-            </div>
+          <div className='flex flex-col rounded-xl bg-neutral-900 my-4 text-white'>
+            <h3 className='font-bold text-xl my-4 px-4'> What's happening</h3>
             <div>
-              <BsThreeDots />
+              {
+                Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i}
+                    className='hover:bg-white/10 p-4 last:rounded-b-xl transition duration-200 cursor-pointer'
+                  >
+                    <div className='font-bold text-lg'>#Trending {i + 1}</div>
+                    <div className='text-xs text-natural-400'>35.4k</div>
+                  </div>
+                ))
+              }
             </div>
-          </button>
+          </div>
+          <div className='flex flex-col rounded-xl bg-neutral-900 my-4 text-white'>
+            <h3 className='font-bold text-xl my-4 px-4'>Who to follow</h3>
+            <div >
+              {
+                Array.from({ length: 3 }).map((_, i) => (
+                  <div key={i}
+                    className='hover:bg-white/10 p-4 last:rounded-b-xl transition duration-200 cursor-pointer flex items-center justify-between space-x-2'
+                  >
+                    <div className='flex space-x-2 items-center'>
+                      <div className='w-10 h-10 bg-neutral-600 rounded-full'></div>
+                      <div className='flex flex-col'>
+                        <p className='font-bold text-base hover:underline'>Other User</p>
+                        <p className='font-normal text-sm text-gray-500'>@otheruser1234</p>
+                      </div>
+                    </div>
+                    <div>
+                      <button title='follow' type='button' className='rounded-full px-6 py-2 bg-white text-neutral-950 font-semibold hover:opacity-80'>Follow</button>
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
         </section>
-        <main>home</main>
-        <section>right</section>
       </div>
     </div>
   )

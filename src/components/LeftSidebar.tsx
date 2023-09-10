@@ -39,15 +39,15 @@ const navigation_items = [
 
 export default function LeftSidebar() {
     return (
-        <header className="sticky top-0 h-screen min-w-[275px] w-full max-w-[320px] flex flex-col items-center justify-between text-white px-8">
-            <div className='w-full flex flex-col items-stretch h-full my-4 space-y-4'>
+        <header className="sticky top-0 h-screen min-w-[275px] w-full max-w-xs flex flex-col items-center justify-between text-white px-8">
+            <div className='w-full flex flex-col items-stretch h-full my-4 space-y-4 max-w-[275px]'>
                 {navigation_items.map((item, i) => (
                     <Link href={`/${item?.title?.toLowerCase()}`} key={i} className='hover:bg-white/10 transition duration-200 rounded-3xl py-2 px-4 flex items-center justify-start w-fit space-x-2 text-xl'>
                         <span><item.icon /></span>
                         {item.title && <p>{item.title}</p>}
                     </Link>
                 ))}
-                <button title='tweet' type='button' className='bg-blue-pry my-4 rounded-full p-4 text-xl font-semibold text-center hover:bg-opacity-80 transition duration-200'>Tweet</button>
+                <button title='tweet' type='button' className='bg-blue-pry my-4 rounded-full p-4 text-xl max-w-[275px] font-semibold text-center hover:bg-opacity-80 transition duration-200'>Tweet</button>
             </div>
             <button title='profile' className='my-4 w-full max-w-[275px] hover:bg-white/20 bg-transparent rounded-full py-2 px-4 transition duration-200 flex items-center justify-between space-x-2'>
                 <div className='flex items-center space-x-2'>

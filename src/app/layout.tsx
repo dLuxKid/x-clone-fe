@@ -1,5 +1,8 @@
-import '../style/globals.css'
 import type { Metadata } from 'next'
+import '../style/globals.css'
+import { Toaster } from 'sonner'
+import AuthModal from '@/components/AuthModal'
+import AuthProvider from '@/context/AuthContext'
 
 
 export const metadata: Metadata = {
@@ -14,7 +17,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className='max-w-screen-2xl min-h-screen bg-black'>
-        {children}
+        <AuthProvider>
+          <Toaster position='top-right' className='z-50' />
+          <AuthModal />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )

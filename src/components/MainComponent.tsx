@@ -12,7 +12,7 @@ export default function MainComponent() {
                 <div className='flex flex-col w-full space-y-2'>
                     <input type='text'
                         placeholder="What's happening?"
-                        className='w-full h-full bg-transparent outline-none p-4 text-2xl placeholder:text-gray-600'
+                        className='w-full h-full bg-transparent outline-none p-4 text-xl placeholder:text-gray-600'
                     />
                     <div className='w-full flex justify-between items-center'>
                         <div></div>

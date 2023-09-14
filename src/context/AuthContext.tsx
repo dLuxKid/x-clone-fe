@@ -3,7 +3,8 @@
 import { Database } from "@/types/database.types";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "sonner";
+import { toast } from "react-toastify";
+
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -26,6 +27,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     const supabase = createClientComponentClient<Database>();
 
     useEffect(() => {
+        setAuthisReady(false)
         const fetchUser = async () => {
             try {
                 supabase.auth.onAuthStateChange(async (event, session) => {
@@ -44,13 +46,13 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
                             // @ts-ignore
                             const { username, email } = profileData[0];
                             setUser({ id: session.user.id, username, email });
+                            setAuthisReady(true)
                         } else {
-                            toast.error('error fetching user, try again')
                             setUser(null);
                         }
                         setAuthisReady(true)
                     } else {
-                        toast.error('error fetching user, try again')
+                        setAuthisReady(true)
                         setUser(null);
                     }
                 });

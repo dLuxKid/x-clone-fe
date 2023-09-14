@@ -1,7 +1,5 @@
-import React from 'react'
-
 export default function Loader() {
     return (
-        <div className='w-10 h-10 bg-blue-pry border-2 border-t-transparent animate-spin'></div>
+        <div className='w-5 h-5 border-blue-pry bg-transparent rounded-full border-2 border-t-transparent animate-spin'></div>
     )
 }

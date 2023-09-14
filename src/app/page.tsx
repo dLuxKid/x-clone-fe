@@ -8,8 +8,6 @@ import RightSidebar from '@/components/RightSidebar'
 import PageLoader from '@/components/Loader/PageLoader'
 // context
 import { useAuthContext } from '@/context/AuthContext'
-// toast
-import { Toaster } from 'sonner'
 
 export default function Home() {
   const { user, authIsReady } = useAuthContext()
@@ -20,7 +18,6 @@ export default function Home() {
 
   return (
     <>
-      <Toaster position='top-right' />
       <div className="relative w-full h-full flex justify-center items-center">
         <div className="min-h-screen w-full relative flex mx-auto">
           <LeftSidebar />

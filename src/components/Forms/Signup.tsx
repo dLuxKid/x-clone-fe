@@ -11,7 +11,7 @@ import Loader from "../Loader/Loader"
 import { Database } from "@/types/database.types"
 import { Button } from "../ui/button"
 // toast
-import { toast } from "sonner"
+import { toast } from "react-toastify"
 // hooks
 import { useAuthContext } from "@/context/AuthContext"
 
@@ -42,14 +42,21 @@ export default function Signup({ setFormType }: Props) {
     const handleSignup = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
+
+        if (!formValues.email || !formValues.password || !formValues.username) {
+            setLoading(false)
+            return toast.error('Please fill in values')
+        }
+
         try {
-            const { data } = await supabase.from('profiles').select().eq('username', formValues.email.trim())
+            const { data } = await supabase.from('profiles').select('id').eq('email', formValues.email.trim())
 
             if (data?.length) {
+                setLoading(false)
                 return toast.error('credentials already exists use another one')
             }
 
-            const { data: { user }
+            const { data: userData
             } = await supabase.auth.signUp({
                 email: formValues.email,
                 password: formValues.password,
@@ -58,17 +65,19 @@ export default function Signup({ setFormType }: Props) {
                 },
             })
 
-            console.log(user)
+            console.log(userData)
 
             // @ts-ignore
             await supabase
                 .from('profiles')
                 .upsert(
-                    [{ username: formValues.username, email: formValues.email, id: user?.id as string }],
+                    [{ username: formValues.username, email: formValues.email, id: userData?.user?.id }],
                     { onConflict: ['id'], returning: ['*'] }
                 )
+
             //  @ts-ignore
             setUser({ id: user.id as string, username: profileData[0].username, email: profileData[0].email })
+
             setLoading(false)
             router.push('/')
             toast.success('Successful')
@@ -99,7 +108,7 @@ export default function Signup({ setFormType }: Props) {
                 </div>
                 <div className="flex justify-between gap-4 w-full items-center">
                     <p className="text-sm text-gray-500 cursor-pointer font-semibold hover:underline" onClick={() => setFormType('login')}>Login to your account</p>
-                    <Button className="bg-blue-pry w-fit text-white hover:bg-blue-pry px-6 py-2 disabled:bg-neutral-400 disabled:hover:bg-neutral-400 disabled:cursor-not-allowed" onClick={handleSignup} disabled={loading}>
+                    <Button className="bg-blue-pry w-fit min-w-[100px] text-white hover:bg-blue-pry px-6 py-2 disabled:bg-neutral-400 disabled:hover:bg-neutral-400 disabled:cursor-not-allowed" onClick={handleSignup} disabled={loading}>
                         {loading ? <Loader /> : 'Signup'}
                     </Button>
                 </div>

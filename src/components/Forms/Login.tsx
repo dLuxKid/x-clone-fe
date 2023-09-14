@@ -11,7 +11,7 @@ import { Database } from "@/types/database.types"
 import { Button } from "../ui/button"
 import Loader from "../Loader/Loader"
 // tost
-import { toast } from "sonner"
+import { toast } from "react-toastify"
 // hooks
 import { useAuthContext } from "@/context/AuthContext"
 
@@ -40,8 +40,15 @@ export default function Login({ setFormType }: Props) {
         }));
     }
 
-    const handleLogin = async () => {
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault()
         setLoading(true)
+
+        if (!formValues.email || !formValues.password) {
+            setLoading(false)
+            return toast.error('Please fill in values')
+        }
+
         try {
             const { data } = await supabase.auth.signInWithPassword({
                 email: formValues.email,
@@ -52,7 +59,7 @@ export default function Login({ setFormType }: Props) {
                 = await supabase.from('profiles').select('id, username, email').eq('id', data.user?.id as string)
             //  @ts-ignore
             setUser({ id: user.id as string, username: profileData[0].username, email: profileData[0].email })
-            router.refresh()
+            router.push('/')
             toast.success('Login successful')
             setLoading(false)
         } catch (error: any) {
@@ -75,7 +82,7 @@ export default function Login({ setFormType }: Props) {
                 </div>
                 <div className="flex justify-between gap-4 w-full items-center">
                     <p className="text-sm text-gray-500 cursor-pointer font-semibold hover:underline" onClick={() => setFormType('signup')}>Create account</p>
-                    <Button className="bg-blue-pry w-fit text-white hover:bg-blue-pry px-6 py-2 disabled:bg-neutral-400 disabled:cursor-not-allowed" onClick={handleLogin} disabled={loading}>
+                    <Button className="bg-blue-pry min-w-[100px] w-fit text-white hover:bg-blue-pry px-6 py-2 disabled:bg-neutral-400 disabled:cursor-not-allowed" onClick={handleLogin} disabled={loading}>
                         {loading ? <Loader /> : 'Login'}
                     </Button>
                 </div>

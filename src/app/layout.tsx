@@ -18,8 +18,6 @@ export default function RootLayout({
     <html lang="en">
       <body className='max-w-screen-2xl min-h-screen bg-black'>
         <AuthProvider>
-          <Toaster position='top-right' className='z-50' />
-          <AuthModal />
           {children}
         </AuthProvider>
       </body>

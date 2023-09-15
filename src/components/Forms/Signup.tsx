@@ -62,10 +62,11 @@ export default function Signup({ setFormType }: Props) {
                 password: formValues.password,
                 options: {
                     emailRedirectTo: `${location.origin}/auth/callback`,
+                    data: {
+                        username: formValues.username
+                    }
                 },
             })
-
-            console.log(data, userData, error)
 
             // @ts-ignore
             await supabase
@@ -108,7 +109,7 @@ export default function Signup({ setFormType }: Props) {
                 </div>
                 <div className="flex justify-between gap-4 w-full items-center">
                     <p className="text-sm text-gray-500 cursor-pointer font-semibold hover:underline" onClick={() => setFormType('login')}>Login to your account</p>
-                    <Button className="bg-blue-pry w-fit min-w-[100px] text-white hover:bg-blue-pry px-6 py-2 disabled:bg-neutral-400 disabled:hover:bg-neutral-400 disabled:cursor-not-allowed" onClick={handleSignup} disabled={loading}>
+                    <Button className="bg-blue-pry w-fit min-w-[100px] text-white hover:bg-blue-pry px-6 py-2 disabled:cursor-not-allowed" onClick={handleSignup} disabled={loading}>
                         {loading ? <Loader /> : 'Signup'}
                     </Button>
                 </div>

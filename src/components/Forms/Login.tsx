@@ -82,7 +82,7 @@ export default function Login({ setFormType }: Props) {
                 </div>
                 <div className="flex justify-between gap-4 w-full items-center">
                     <p className="text-sm text-gray-500 cursor-pointer font-semibold hover:underline" onClick={() => setFormType('signup')}>Create account</p>
-                    <Button className="bg-blue-pry min-w-[100px] w-fit text-white hover:bg-blue-pry px-6 py-2 disabled:bg-neutral-400 disabled:cursor-not-allowed" onClick={handleLogin} disabled={loading}>
+                    <Button className="bg-blue-pry min-w-[100px] w-fit text-white hover:bg-blue-pry px-6 py-2 disabled:cursor-not-allowed" onClick={handleLogin} disabled={loading}>
                         {loading ? <Loader /> : 'Login'}
                     </Button>
                 </div>

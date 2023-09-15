@@ -2,25 +2,15 @@
 import { BsChat, BsDot, BsThreeDots } from 'react-icons/bs'
 import { AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai'
 import { IoShareOutline, IoStatsChart } from 'react-icons/io5'
+import ComposeTweet from './serverComponents/ComposeTweet'
 
 export default function MainComponent() {
     return (
-        <main className='min-h-screen w-full max-w-2xl flex flex-col border-x-[0.5px] border-gray-500 text-white'>
+        <main className='min-h-screen w-full max-w-2xl flex flex-col border-x-[0.5px] border-gray-500 text-white mx-auto'>
             <h1 className='text-xl font-bold p-4 sticky backdrop-blur top-0 bg-black/10'>Home</h1>
             <div className='border-y-[0.5px] px-4 border-gray-600 flex items-start space-x-2 min-h-32 relative py-4'>
                 <div className='w-10 h-10 bg-slate-400 rounded-full flex-none'></div>
-                <div className='flex flex-col w-full space-y-2'>
-                    <input type='text'
-                        placeholder="What's happening?"
-                        className='w-full h-full bg-transparent outline-none p-4 text-xl placeholder:text-gray-600'
-                    />
-                    <div className='w-full flex justify-between items-center'>
-                        <div></div>
-                        <div className='w-full max-w-[100px]'>
-                            <button title='tweet' type='button' className='bg-blue-pry rounded-full px-4 py-2 w-full text-lg font-semibold text-center hover:bg-opacity-80 transition duration-200'>Tweet</button>
-                        </div>
-                    </div>
-                </div>
+                <ComposeTweet />
             </div>
             <div className='flex flex-col'>
                 {

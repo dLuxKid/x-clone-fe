@@ -1,8 +1,12 @@
 'use client'
 
+// types
 import { Database } from "@/types/database.types";
+// supabase
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+// react
 import { createContext, useContext, useEffect, useState } from "react";
+// toast
 import { toast } from "react-toastify";
 
 

@@ -39,7 +39,7 @@ const navigation_items = [
 
 export default function LeftSidebar() {
     return (
-        <header className="sticky top-0 h-screen min-w-[275px] w-full max-w-xs flex flex-col items-center justify-between text-white px-8">
+        <header className="sticky top-0 h-screen min-w-[275px] w-full max-w-xs hidden lg:flex flex-col items-center justify-between text-white px-8">
             <div className='w-full flex flex-col items-stretch h-full my-4 space-y-4 max-w-[275px]'>
                 {navigation_items.map((item, i) => (
                     <Link href={`/${item?.title?.toLowerCase()}`} key={i} className='hover:bg-white/10 transition duration-200 rounded-3xl py-2 px-4 flex items-center justify-start w-fit space-x-2 text-xl'>

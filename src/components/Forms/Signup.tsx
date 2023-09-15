@@ -56,7 +56,7 @@ export default function Signup({ setFormType }: Props) {
                 return toast.error('credentials already exists use another one')
             }
 
-            const { data: userData
+            const { data: userData, error
             } = await supabase.auth.signUp({
                 email: formValues.email,
                 password: formValues.password,
@@ -65,7 +65,7 @@ export default function Signup({ setFormType }: Props) {
                 },
             })
 
-            console.log(userData)
+            console.log(data, userData, error)
 
             // @ts-ignore
             await supabase
@@ -76,7 +76,7 @@ export default function Signup({ setFormType }: Props) {
                 )
 
             //  @ts-ignore
-            setUser({ id: user.id as string, username: profileData[0].username, email: profileData[0].email })
+            setUser({ id: user.id as string, username: formValues.username, email: formValues.emails })
 
             setLoading(false)
             router.push('/')

@@ -17,15 +17,13 @@ export default function Home() {
   if (!user && authIsReady) return <AuthModal />
 
   return (
-    <>
-      <div className="relative w-full h-full flex justify-center items-center">
-        <div className="min-h-screen w-full relative flex mx-auto">
-          <LeftSidebar />
-          <MainComponent />
-          <RightSidebar />
-        </div>
+    <div className="relative w-full h-full flex justify-center items-center">
+      <div className="min-h-screen w-full relative flex mx-auto">
+        <LeftSidebar />
+        <MainComponent />
+        <RightSidebar />
       </div>
-    </>
+    </div>
   )
 }
 

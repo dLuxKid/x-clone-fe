@@ -2,6 +2,7 @@
 
 import { Database } from "@/types/database.types";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { SupabaseClient, createClient } from "@supabase/supabase-js";
 import { randomUUID } from "crypto";
 import { cookies } from "next/headers";
 
@@ -15,11 +16,11 @@ export default async function sendTweet(formData: FormData) {
 
   if (userError) return { userError };
 
-  const { data, error } = await supabase.from("tweets").insert({
+  const { error } = await supabase.from("tweets").insert({
     text: tweet as string,
     id: randomUUID(),
     user_id: userData.session?.user.id as string,
   });
 
-  return { error, data };
+  return { error };
 }

@@ -2,15 +2,28 @@ import sendTweet from "@/functions/sendTweet";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Loader from "../Loader/Loader";
+import { useRouter } from "next/navigation";
 
-export default function ComposeTweet() {
+interface Props {
+    fetchTweetUponSend: () => void
+}
+
+export default function ComposeTweet({ fetchTweetUponSend }: Props) {
     const [pending, setPending] = useState<boolean>(false)
+
+    const router = useRouter()
 
     const handleAction = async (formData: FormData) => {
         setPending(true)
 
+        const tweet = formData.get("tweet");
+        if (!tweet) {
+            setPending(false)
+            return
+        };
+
         try {
-            const res = await sendTweet(formData)
+            const res = await sendTweet(tweet as string)
             if (res?.userError) {
                 setPending(false)
                 return toast.error(res?.userError?.message)
@@ -22,6 +35,8 @@ export default function ComposeTweet() {
             }
 
             setPending(false)
+            router.refresh()
+            fetchTweetUponSend()
             return toast.success('tweet sent successfully')
         } catch (error: any) {
             setPending(false)
@@ -43,7 +58,7 @@ export default function ComposeTweet() {
                     <button
                         title='tweet'
                         type='submit'
-                        className='bg-blue-pry rounded-full px-6 py-2 w-full text-lg font-semibold text-center hover:bg-opacity-80 transition duration-200 disabled:bg-opacity-80'
+                        className='bg-blue-pry rounded-full px-6 py-2 w-full text-lg font-semibold text-center hover:bg-opacity-80 transition duration-200 disabled:bg-opacity-80 flex items-center justify-center'
                         disabled={pending}
                     >{pending ? <Loader /> : 'Tweet'}</button>
                 </div>

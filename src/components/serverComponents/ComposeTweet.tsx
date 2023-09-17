@@ -1,8 +1,13 @@
-import sendTweet from "@/functions/sendTweet";
-import { useState } from "react";
-import { toast } from "react-toastify";
-import Loader from "../Loader/Loader";
+// next
 import { useRouter } from "next/navigation";
+// react
+import { useState } from "react";
+// server functions
+import sendTweet from "@/functions/sendTweet";
+// toastify
+import { toast } from "react-toastify";
+// components
+import Loader from "../Loader/Loader";
 
 interface Props {
     fetchTweetUponSend: () => void

@@ -1,35 +1,37 @@
-// icons 
-import fetchTweets from '@/functions/fetchTweets'
-import { formatDistanceToNow } from "date-fns"
+// react
 import { useEffect, useState } from 'react'
+// server functions
+import fetchTweets from '@/functions/fetchTweets'
+// date formatter
+import { formatDistanceToNow } from "date-fns"
+// icons 
 import { AiOutlineHeart, AiOutlineRetweet } from 'react-icons/ai'
 import { BsChat, BsDot, BsThreeDots } from 'react-icons/bs'
 import { IoShareOutline, IoStatsChart } from 'react-icons/io5'
+// toastify
 import { toast } from 'react-toastify'
+// components
 import Loader from './Loader/Loader'
 import ComposeTweet from './serverComponents/ComposeTweet'
+// types
+import { tweetType } from '@/types/types'
 
 
-type tweetType = {
-    created_at: string
-    id: string
-    profiles: { email: string, username: string }
-    email: string
-    username: string
-    text: string
-    updated_at: string
-    user_id: string
-}[]
 
 export default function MainComponent() {
-
-    const [tweets, setTweets] = useState<tweetType>([])
+    const [tweets, setTweets] = useState<tweetType | null>(null)
     const [loading, setLoading] = useState<boolean>(false)
 
     async function fetchData() {
         setLoading(true)
         try {
             const res = await fetchTweets()
+
+            if (!res) {
+                setLoading(false)
+                throw new Error("Error fetching tqeets");
+            }
+
             setTweets(res.data?.reverse() as tweetType)
 
             setTimeout(() => {
@@ -62,8 +64,8 @@ export default function MainComponent() {
                             <Loader />
                         </div>
                         :
-                        tweets.map((tweet, i) => (
-                            <div key={i}
+                        tweets && tweets.map((tweet) => (
+                            <div key={tweet.id}
                                 className='border-b-[0.5px] border-gray-600 flex space-x-4 p-4'
                             >
                                 <div>

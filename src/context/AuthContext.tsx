@@ -1,5 +1,7 @@
 'use client'
 
+import AuthModal from "@/components/AuthModal";
+import PageLoader from "@/components/Loader/PageLoader";
 // types
 import { Database } from "@/types/database.types";
 // supabase
@@ -9,13 +11,11 @@ import { createContext, useContext, useEffect, useState } from "react";
 // toast
 import { toast } from "react-toastify";
 
-
 const AuthContext = createContext<AuthContextType | null>(null);
 
 interface AuthContextType {
     user: userType | null;
     setUser: React.Dispatch<React.SetStateAction<userType | null>>;
-    authIsReady: boolean
 }
 
 interface userType {
@@ -47,7 +47,6 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
                         }
 
                         if (profileData && profileData.length > 0) {
-                            // @ts-ignore
                             const { username, email } = profileData[0];
                             setUser({ id: session.user.id, username, email });
                             setAuthisReady(true)
@@ -69,7 +68,11 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
         fetchUser();
     }, []);
 
-    const authContextValue: AuthContextType = { user, setUser, authIsReady };
+    const authContextValue: AuthContextType = { user, setUser };
+
+    if (!authIsReady) return <PageLoader />
+
+    if (!user && authIsReady) return <AuthModal />
 
     return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
 };

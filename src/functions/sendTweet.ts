@@ -3,6 +3,7 @@
 import { Database } from "@/types/database.types";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { randomUUID } from "crypto";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
 export default async function sendTweet(tweet: string) {
@@ -17,6 +18,8 @@ export default async function sendTweet(tweet: string) {
     id: randomUUID(),
     user_id: userData.session?.user.id as string,
   });
+
+  revalidatePath("/");
 
   return { error };
 }

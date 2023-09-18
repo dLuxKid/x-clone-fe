@@ -1,7 +1,7 @@
-// next
-import { useRouter } from "next/navigation";
+'use client'
+
 // react
-import { useState } from "react";
+import { useState, useRef } from "react";
 // server functions
 import sendTweet from "@/functions/sendTweet";
 // toastify
@@ -13,10 +13,10 @@ interface Props {
     fetchTweetUponSend: () => void
 }
 
-export default function ComposeTweet({ fetchTweetUponSend }: Props) {
+export default function ComposeTweet() {
     const [pending, setPending] = useState<boolean>(false)
 
-    const router = useRouter()
+    const btnRef = useRef<HTMLButtonElement>(null)
 
     const handleAction = async (formData: FormData) => {
         setPending(true)
@@ -40,8 +40,7 @@ export default function ComposeTweet({ fetchTweetUponSend }: Props) {
             }
 
             setPending(false)
-            router.refresh()
-            fetchTweetUponSend()
+            btnRef.current?.click()
             return toast.success('tweet sent successfully')
         } catch (error: any) {
             setPending(false)
@@ -54,7 +53,7 @@ export default function ComposeTweet({ fetchTweetUponSend }: Props) {
             <input
                 type='text'
                 name='tweet'
-                placeholder="What's happening?"
+                placeholder="What's happening?!"
                 className='w-full h-full bg-transparent outline-none p-4 text-xl placeholder:text-gray-600'
             />
             <div className='w-full flex justify-between items-center'>
@@ -63,9 +62,12 @@ export default function ComposeTweet({ fetchTweetUponSend }: Props) {
                     <button
                         title='tweet'
                         type='submit'
-                        className='bg-blue-pry rounded-full px-6 py-2 w-full text-lg font-semibold text-center hover:bg-opacity-80 transition duration-200 disabled:bg-opacity-80 flex items-center justify-center'
+                        className='bg-blue-pry rounded-full px-6 py-2 w-full text-lg font-semibold text-center hover:bg-opacity-80 transition duration-200 disabled:opacity-80 flex items-center justify-center'
                         disabled={pending}
-                    >{pending ? <Loader /> : 'Tweet'}</button>
+                    >
+                        {pending ? <Loader /> : 'Tweet'}
+                    </button>
+                    <button title="reset" className="hidden" type="reset" ref={btnRef}></button>
                 </div>
             </div>
         </form>

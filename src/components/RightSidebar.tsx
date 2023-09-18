@@ -2,7 +2,7 @@ import { BsSearch } from 'react-icons/bs'
 
 export default function RightSidebar() {
     return (
-        <section className='sticky top-2 mt-2 hidden lg:flex flex-col space-y-4 h-screen min-w-[275px] w-full max-w-[392px] px-6 overflow-scroll right-section'
+        <section className='sticky top-2 hidden lg:flex flex-col space-y-4 h-screen min-w-[275px] w-full max-w-[392px] px-6 overflow-scroll right-section'
         >
             <div className='relative h-full w-full'>
                 <input
@@ -10,7 +10,7 @@ export default function RightSidebar() {
                     title='search twitter'
                     type="text"
                     placeholder='Search Twitter'
-                    className='w-full h-full rounded-full outline-none border-0 bg-neutral-900/90 py-4 pl-14 pr-4 focus:border focus:border-blue-pry peer text-white'
+                    className='w-full h-[60px] rounded-full outline-none border-0 bg-neutral-900/90 py-4 pl-14 pr-4 focus:border focus:border-blue-pry peer text-white'
                 />
                 <label htmlFor='searchBox' className='absolute top-0 left-4 h-full flex items-center justify-center text-gray-500 peer-focus:text-blue-pry'>
                     <BsSearch className='w-5 h-5' />

@@ -20,5 +20,5 @@ export default async function fetchTweets() {
         )
     `
     )
-    .returns<tweetType>();
+    .returns<tweetType[]>();
 }

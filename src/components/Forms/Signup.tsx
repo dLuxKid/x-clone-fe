@@ -1,14 +1,12 @@
 'use client'
 
-// next
-import { useRouter } from "next/navigation"
 // react
 import { useState } from "react"
 // supabase
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 // components
-import Loader from "../Loader/Loader"
 import { Database } from "@/types/database.types"
+import Loader from "../Loader/Loader"
 import { Button } from "../ui/button"
 // toast
 import { toast } from "react-toastify"
@@ -22,12 +20,11 @@ interface Props {
 }
 
 export default function Signup({ setFormType }: Props) {
-    const router = useRouter()
-
     const supabase = createClientComponentClient<Database>()
 
     const [formValues, setFormValues] = useState<signupType>({ username: '', email: '', password: '' })
     const [loading, setLoading] = useState<boolean>(false)
+    const [message, setMessage] = useState<string>('')
 
     const { setUser } = useAuthContext()
 
@@ -72,9 +69,8 @@ export default function Signup({ setFormType }: Props) {
                 // @ts-ignore
                 await supabase
                     .from('profiles')
-                    .upsert(
-                        [{ username: formValues.username, email: userData.user.email, id: userData.user.id }],
-                        { onConflict: ['id'], returning: ['*'] }
+                    .insert(
+                        [{ username: formValues.username, email: formValues.email, id: userData.user.id }]
                     )
 
                 setUser({ id: userData.user.id as string, username: formValues.username, email: formValues.email })
@@ -84,8 +80,8 @@ export default function Signup({ setFormType }: Props) {
             }
 
             setLoading(false)
-            router.push('/')
-            toast.success('Successfully registered')
+            toast('verify email address to login')
+            setMessage('Head over to your email and verify account')
 
         } catch (error: any) {
             console.log(error.message)
@@ -97,7 +93,7 @@ export default function Signup({ setFormType }: Props) {
 
     return (
         <>
-            <h3 className="text-lg font-semibold mb-2">Please sign up to continue</h3>
+            {message ? <h3 className="text-bold text-lg text-pry-blue mb-2">{message}</h3> : <h3 className="text-lg font-semibold mb-2">Please sign up to continue</h3>}
             <form onSubmit={handleSignup} className="flex flex-col items-stretch justify-center gap-4 md:gap-6">
                 <div>
                     <p className="text-sm text-gray-200 mb-1">Username</p>

@@ -20,10 +20,10 @@ export default async function MainComponent() {
                 {
                     error &&
                     <div className='w-full flex items-center justify-center p-10'>
-                        <p className='text-white text-lg font-medium'>{error.message}</p>
+                        <p className='text-white text-lg font-medium'>Error fetching tweets</p>
                     </div>
                 }
-                {!data &&
+                {!data && !error &&
                     <>
                         <TweetSkeletonLoader />
                         <TweetSkeletonLoader />

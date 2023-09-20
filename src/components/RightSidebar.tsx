@@ -2,7 +2,7 @@ import { BsSearch } from 'react-icons/bs'
 
 export default function RightSidebar() {
     return (
-        <section className='sticky top-2 hidden lg:flex flex-col space-y-4 h-screen min-w-[275px] w-full max-w-[392px] px-6 overflow-scroll right-section'
+        <section className='sticky top-2 hidden lg:flex flex-col space-y-4 h-[98vh] min-w-[275px] w-full max-w-[392px] px-6 overflow-scroll right-section'
         >
             <div className='relative h-full w-full'>
                 <input

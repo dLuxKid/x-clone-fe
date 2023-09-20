@@ -7,7 +7,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 // next
 import { cookies } from "next/headers";
 
-export default async function fetchTweets() {
+export async function fetchTweets() {
   const supabase = createServerComponentClient({ cookies });
 
   return await supabase

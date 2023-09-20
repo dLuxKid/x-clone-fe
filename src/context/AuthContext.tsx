@@ -72,7 +72,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
     if (!authIsReady) return <PageLoader />
 
-    if (!user && authIsReady) return <AuthModal />
+    if (!user && authIsReady) return <AuthContext.Provider value={authContextValue}><AuthModal /></AuthContext.Provider>
 
     return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
 };

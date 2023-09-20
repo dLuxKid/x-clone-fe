@@ -13,7 +13,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 // functions
-import { likeTweet } from "@/functions/likeTweet"
+import { likeTweet } from "@/functions"
 // toast
 import { toast } from "react-toastify"
 // auth
@@ -74,6 +74,7 @@ export default function TweetCard({ tweet }: Props) {
                         title="like"
                         type="button"
                         className='p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200'
+                        disabled={isLikePending}
                         onClick={() => LikeTweet(tweet.id, tweet.user_id)}
                     >
                         <AiOutlineHeart />

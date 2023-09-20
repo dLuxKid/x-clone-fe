@@ -57,8 +57,9 @@ export default function Login({ setFormType }: Props) {
 
             const { data: profileData }
                 = await supabase.from('profiles').select('id, username, email').eq('id', data.user?.id as string)
+
             //  @ts-ignore
-            setUser({ id: user.id as string, username: profileData[0].username, email: profileData[0].email })
+            setUser({ id: data.user?.id as string, username: profileData[0].username, email: profileData[0].email })
             router.push('/')
             toast.success('Login successful')
             setLoading(false)

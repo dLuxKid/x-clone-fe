@@ -3,7 +3,7 @@
 // react
 import { useState, useRef } from "react";
 // server functions
-import sendTweet from "@/functions/sendTweet";
+import { sendTweet } from "@/functions";
 // toastify
 import { toast } from "react-toastify";
 // components

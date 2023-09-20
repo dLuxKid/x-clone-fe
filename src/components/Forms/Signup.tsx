@@ -56,7 +56,7 @@ export default function Signup({ setFormType }: Props) {
                 return toast.error('credentials already exists use another one')
             }
 
-            const { data: userData, error
+            const { data: userData, error: signupError
             } = await supabase.auth.signUp({
                 email: formValues.email,
                 password: formValues.password,
@@ -68,20 +68,24 @@ export default function Signup({ setFormType }: Props) {
                 },
             })
 
-            // @ts-ignore
-            await supabase
-                .from('profiles')
-                .upsert(
-                    [{ username: formValues.username, email: formValues.email, id: userData?.user?.id }],
-                    { onConflict: ['id'], returning: ['*'] }
-                )
+            if (userData.user) {
+                // @ts-ignore
+                await supabase
+                    .from('profiles')
+                    .upsert(
+                        [{ username: formValues.username, email: userData.user.email, id: userData.user.id }],
+                        { onConflict: ['id'], returning: ['*'] }
+                    )
 
-            //  @ts-ignore
-            setUser({ id: user.id as string, username: formValues.username, email: formValues.emails })
+                setUser({ id: userData.user.id as string, username: formValues.username, email: formValues.email })
+            } else {
+                console.log(signupError)
+                throw new Error("Error creating account");
+            }
 
             setLoading(false)
             router.push('/')
-            toast.success('Successful')
+            toast.success('Successfully registered')
 
         } catch (error: any) {
             console.log(error.message)

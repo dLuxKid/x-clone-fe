@@ -1,12 +1,26 @@
 "use server";
 
+// types
 import { Database } from "@/types/database.types";
+// supabase
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+// id generator
 import { randomUUID } from "crypto";
+// next
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-export default async function sendTweet(tweet: string) {
+export const likeTweet = async (tweetid: string, userid: string) => {
+  const supabase = createServerActionClient<Database>({ cookies });
+
+  await supabase.from("likes").insert({
+    id: randomUUID(),
+    tweet_id: tweetid,
+    user_id: userid,
+  });
+};
+
+export async function sendTweet(tweet: string) {
   const supabase = createServerActionClient<Database>({ cookies });
 
   const { data: userData, error: userError } = await supabase.auth.getSession();

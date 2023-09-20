@@ -1,5 +1,5 @@
 // server functions
-import fetchTweets from '@/functions/fetchTweets'
+import { fetchTweets } from '@/functions'
 // components
 import ComposeTweet from './clientComponents/ComposeTweet'
 import TweetCard from './serverComponents/TweetCard'
@@ -25,7 +25,6 @@ export default async function MainComponent() {
                 }
                 {!data &&
                     <>
-                        <TweetSkeletonLoader />
                         <TweetSkeletonLoader />
                         <TweetSkeletonLoader />
                     </>

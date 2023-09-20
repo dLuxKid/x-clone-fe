@@ -20,19 +20,20 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className='max-w-screen-2xl min-h-screen bg-black'>
+        <ToastContainer
+          position="top-right"
+          autoClose={2500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          className={'h-fit p-4 z-50'}
+        />
         <AuthProvider>
-          <ToastContainer
-            position="top-right"
-            autoClose={2500}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
           {children}
         </AuthProvider>
       </body>

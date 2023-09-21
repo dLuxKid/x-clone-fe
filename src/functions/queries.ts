@@ -29,3 +29,16 @@ export async function getTweetCount(tweetId: string) {
     .select("id", { count: "exact" })
     .eq("tweet_id", tweetId);
 }
+
+export async function isTweetLiked(userid: string, tweetid: string) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const { data } = await supabase
+    .from("likes")
+    .select("*")
+    .eq("user_id", userid)
+    .eq("tweet_id", tweetid)
+    .single();
+
+  return Boolean(data?.id);
+}

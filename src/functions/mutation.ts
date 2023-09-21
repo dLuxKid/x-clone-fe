@@ -18,6 +18,8 @@ export const likeTweet = async (tweetid: string, userid: string) => {
     tweet_id: tweetid,
     user_id: userid,
   });
+
+  revalidatePath("/");
 };
 
 export async function sendTweet(tweet: string) {

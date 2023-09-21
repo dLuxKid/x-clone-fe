@@ -1,27 +1,26 @@
 'use client'
 
 import { useAuthContext } from "@/context/AuthContext";
-import { getTweetCount, likeTweet } from "@/functions";
+import { likeTweet } from "@/functions";
 import { useTransition } from "react";
-import { AiOutlineHeart } from "react-icons/ai"
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 interface Props {
     tweetid: string
     count: number | null,
-    idData: { id: string }[] | null
+    hasUserLikedTweet: boolean
 }
 
-export default function LikeBtn({ tweetid, count, idData }: Props) {
+export default function LikeBtn({ tweetid, count, hasUserLikedTweet }: Props) {
     const { user } = useAuthContext()
-
     const [isLikePending, startTransition] = useTransition();
 
     return (
         <button
             title="like"
             type="button"
-            className='p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200 flex justify-center items-center gap-3'
+            className='cursor-pointer transition duration-200 flex justify-center items-center gap-2 [&>*:nth-child(1)]:hover:bg-white/10 hover:text-rose-600'
             disabled={isLikePending}
             onClick={() => {
                 if (user) {
@@ -34,8 +33,8 @@ export default function LikeBtn({ tweetid, count, idData }: Props) {
             }
             }
         >
-            <AiOutlineHeart className='w-5 h-5' />
-            <span className="text-sm mb-[2px]">{count ?? 0}</span>
+            {hasUserLikedTweet ? <AiFillHeart className='p-2 h-fit w-fit rounded-full text-rose-600' /> : <AiOutlineHeart className='p-2 h-fit w-fit rounded-full' />}
+            <span className={`text-sm ${hasUserLikedTweet && 'text-rose-600'}`}>{count ?? 0}</span>
         </button>
     )
 }

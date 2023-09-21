@@ -22,6 +22,18 @@ export const likeTweet = async (tweetid: string, userid: string) => {
   revalidatePath("/");
 };
 
+export const unlikeTweet = async (tweetid: string, userid: string) => {
+  const supabase = createServerActionClient<Database>({ cookies });
+
+  await supabase
+    .from("likes")
+    .delete()
+    .eq("tweet_id", tweetid)
+    .eq("user_id", userid);
+
+  revalidatePath("/");
+};
+
 export async function sendTweet(tweet: string) {
   const supabase = createServerActionClient<Database>({ cookies });
 

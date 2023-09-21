@@ -10,6 +10,7 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 // components
 import LikeBtn from "../clientComponents/LikeBtn"
+// server functions
 import { getTweetCount, isTweetLiked } from "@/functions"
 
 interface Props {
@@ -17,7 +18,6 @@ interface Props {
 }
 
 export default async function TweetCard({ tweet }: Props) {
-
     const res = await getTweetCount(tweet.id)
     const hasUserLikedTweet = await isTweetLiked(tweet.user_id, tweet.id)
 
@@ -53,7 +53,7 @@ export default async function TweetCard({ tweet }: Props) {
                     <div className='p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200'>
                         <AiOutlineRetweet />
                     </div>
-                    <LikeBtn tweetid={tweet.id} count={res.count} hasUserLikedTweet={hasUserLikedTweet} />
+                    <LikeBtn tweetid={tweet.id} count={res.count} hasUserLikedTweet={hasUserLikedTweet} userid={tweet.user_id} />
                     <div className='p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200'>
                         <IoStatsChart />
                     </div>

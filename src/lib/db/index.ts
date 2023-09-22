@@ -1,7 +1,6 @@
 import Pool from "pg-pool";
 
-const pool = new Pool({
-  database: "postgres",
+export const pool = new Pool({
   connectionString: process.env.NEXT_PUBLIC_CONNECTION_STRING,
   allowExitOnIdle: true,
 });

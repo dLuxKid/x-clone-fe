@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='max-w-screen-2xl min-h-screen bg-black'>
+      <body className='max-w-screen-[1390px] min-h-screen bg-black'>
         <ToastContainer
           position="top-right"
           autoClose={2500}

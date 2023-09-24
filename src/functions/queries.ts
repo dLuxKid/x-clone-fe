@@ -11,7 +11,7 @@ import { cookies } from "next/headers";
 
 // sql query
 const q = `
-SELECT tweets.*, COUNT(likes.id) AS likes_count,
+SELECT tweets.*, profiles.username AS username, profiles.email AS email, COUNT(likes.id) AS likes_count,
         EXISTS(
             SELECT 1
             FROM likes
@@ -20,7 +20,8 @@ SELECT tweets.*, COUNT(likes.id) AS likes_count,
         ) AS user_has_liked
 FROM tweets
 LEFT JOIN likes ON tweets.id = likes.tweet_id
-GROUP BY tweets.id
+JOIN profiles ON tweets.user_id = profiles.id
+GROUP BY tweets.id, profiles.username, profiles.email
 ORDER BY tweets.created_at DESC;
 `;
 
@@ -29,47 +30,11 @@ export async function fetchTweets() {
 
   const { data } = await supabase.auth.getUser();
 
-  pool.query(q, [data.user?.id], (error, result) => {
-    if (error) {
-      console.error("Error executing", error);
-      return;
-    }
-
-    console.log(result);
-  });
-
-  // pool.end();
-
-  return await supabase
-    .from("tweets")
-    .select(
-      `
-        *,
-        profiles(
-            email, username
-        )
-    `
-    )
-    .returns<tweetType[]>();
-}
-
-export async function getTweetCount(tweetId: string) {
-  const supabase = createServerComponentClient({ cookies });
-  return await supabase
-    .from("likes")
-    .select("id", { count: "exact" })
-    .eq("tweet_id", tweetId);
-}
-
-export async function isTweetLiked(userid: string, tweetid: string) {
-  const supabase = createServerComponentClient({ cookies });
-
-  const { data } = await supabase
-    .from("likes")
-    .select("*")
-    .eq("user_id", userid)
-    .eq("tweet_id", tweetid)
-    .single();
-
-  return Boolean(data?.id);
+  try {
+    const result = await pool.query(q, [data.user?.id]);
+    return { data: result.rows, error: null };
+  } catch (error: any) {
+    console.error("Error executing", error);
+    return { data: null, error: error.message };
+  }
 }

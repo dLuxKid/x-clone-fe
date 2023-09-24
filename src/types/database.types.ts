@@ -100,7 +100,7 @@ export interface Database {
           username: string;
         };
         Insert: {
-          email: string;
+          email?: string;
           id: string;
           updated_at?: string;
           username: string;

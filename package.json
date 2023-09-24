@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "introspect": "drizzle-kit introspect:pg",
+    "generate": "drizzle-kit generate:pg",
+    "migrate": "npx bun run src/lib/db/migrate.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.4",
@@ -22,6 +25,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.9",
+    "drizzle-orm": "^0.28.6",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
     "lucide-react": "^0.276.0",
@@ -29,6 +33,7 @@
     "pg": "^8.11.3",
     "pg-pool": "^3.6.1",
     "postcss": "8.4.28",
+    "postgres": "^3.3.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
@@ -39,6 +44,7 @@
     "typescript": "5.2.2"
   },
   "devDependencies": {
+    "drizzle-kit": "^0.19.13",
     "supabase": "^1.93.0"
   }
 }

@@ -10,16 +10,13 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend(relativeTime)
 // components
 import LikeBtn from "../clientComponents/LikeBtn"
-// server functions
-import { getTweetCount, isTweetLiked } from "@/functions"
+
 
 interface Props {
     tweet: tweetType
 }
 
 export default async function TweetCard({ tweet }: Props) {
-    const res = await getTweetCount(tweet.id)
-    const hasUserLikedTweet = await isTweetLiked(tweet.user_id, tweet.id)
 
     return (
         <div
@@ -31,8 +28,8 @@ export default async function TweetCard({ tweet }: Props) {
             <div className='flex flex-col w-full'>
                 <div className='flex items-center justify-between space-x-1'>
                     <div className='flex items-center space-x-1'>
-                        <div className='font-bold'>{tweet.profiles.username}</div>
-                        <div className='text-gray-500 font-normal'>@{tweet.profiles.email ?? ""}</div>
+                        <div className='font-bold'>{tweet.username}</div>
+                        <div className='text-gray-500 font-normal'>@{tweet.email ?? ""}</div>
                         <div className='text-gray-500 mt-1'>
                             <BsDot />
                         </div>
@@ -53,7 +50,7 @@ export default async function TweetCard({ tweet }: Props) {
                     <div className='p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200'>
                         <AiOutlineRetweet />
                     </div>
-                    <LikeBtn tweetid={tweet.id} count={res.count} hasUserLikedTweet={hasUserLikedTweet} userid={tweet.user_id} />
+                    <LikeBtn tweetid={tweet.id} count={tweet.likes_count} hasUserLikedTweet={tweet.user_has_liked} userid={tweet.user_id} />
                     <div className='p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200'>
                         <IoStatsChart />
                     </div>

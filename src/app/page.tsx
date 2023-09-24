@@ -6,7 +6,7 @@ import RightSidebar from '@/components/RightSidebar'
 export default function Home() {
 
   return (
-    <div className="relative w-full h-full flex justify-center items-center">
+    <div className="relative w-full h-full flex justify-center items-center mx-auto">
       <div className="min-h-screen w-full relative flex mx-auto">
         <LeftSidebar />
         <MainComponent />

@@ -28,8 +28,8 @@ export const unlikeTweet = async (tweetid: string, userid: string) => {
   await supabase
     .from("likes")
     .delete()
-    .eq("tweet_id", tweetid)
-    .eq("user_id", userid);
+    .eq("user_id", userid)
+    .eq("tweet_id", tweetid);
 
   revalidatePath("/");
 };

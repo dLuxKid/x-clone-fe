@@ -30,7 +30,7 @@ export default async function MainComponent() {
                     </>
                 }
                 {
-                    data && data.reverse().map((tweet) => (
+                    data && data.map((tweet) => (
                         <TweetCard tweet={tweet} key={tweet.id} />
                     ))
                 }

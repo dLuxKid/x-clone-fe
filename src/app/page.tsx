@@ -3,6 +3,8 @@ import LeftSidebar from '@/components/LeftSidebar'
 import MainComponent from '@/components/MainComponent'
 import RightSidebar from '@/components/RightSidebar'
 
+export const revalidate = 0
+
 export default function Home() {
 
   return (

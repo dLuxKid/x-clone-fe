@@ -1,9 +1,5 @@
 "use server";
 
-// db
-import { pool } from "@/lib/db";
-// types
-import { tweetType } from "@/types/types";
 // supabase
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 // next

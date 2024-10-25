@@ -9,10 +9,6 @@ import { toast } from "react-toastify";
 // components
 import Loader from "../Loader/Loader";
 
-interface Props {
-    fetchTweetUponSend: () => void
-}
-
 export default function ComposeTweet() {
     const [pending, setPending] = useState<boolean>(false)
 

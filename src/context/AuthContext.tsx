@@ -72,7 +72,13 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => 
 
     if (!authIsReady) return <PageLoader />
 
-    if (!user && authIsReady) return <AuthContext.Provider value={authContextValue}><AuthModal /></AuthContext.Provider>
+    if (!user && authIsReady) {
+        return (
+            <AuthContext.Provider value={authContextValue}>
+                <AuthModal />
+            </AuthContext.Provider>
+        )
+    }
 
     return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;
 };
@@ -82,6 +88,7 @@ export default AuthProvider;
 export const useAuthContext = (): AuthContextType => {
     const context = useContext(AuthContext);
     if (!context) {
+        toast.error('useAuthContext must be used within an AuthProvider')
         throw new Error("useAuthContext must be used within an AuthProvider");
     }
     return context;

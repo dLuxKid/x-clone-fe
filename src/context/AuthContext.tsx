@@ -1,7 +1,7 @@
 "use client";
 
-import AuthModal from "@/components/AuthModal";
-import PageLoader from "@/components/Loader/PageLoader";
+import AuthPage from "@/components/auth-page";
+import PageLoader from "@/components/loader/page-loader";
 import axiosInstance from "@/functions/client-axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -18,6 +18,9 @@ interface userType {
   username: string;
   displayname: string;
   email: string;
+  profile_picture?: string;
+  banner_picture?: string;
+  bio?: string;
 }
 
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -34,16 +37,11 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
 
       const {
         data: {
-          user: { _id, email, displayname, username },
+          user: { createdAt, __v, updatedAt, ...fetchedUser },
         },
       } = data;
 
-      setUser({
-        _id,
-        email,
-        username,
-        displayname,
-      });
+      setUser(fetchedUser);
     } catch (error: any) {
       setUser(null);
       console.error(error.message);
@@ -65,7 +63,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   if (!user && authIsReady) {
     return (
       <AuthContext.Provider value={authContextValue}>
-        <AuthModal />
+        <AuthPage />
       </AuthContext.Provider>
     );
   }

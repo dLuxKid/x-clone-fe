@@ -1,15 +1,11 @@
-// types
 import { tweetType } from "@/types/types";
-// icons
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoShareOutline, IoStatsChart } from "react-icons/io5";
-// date formatter
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
+import LikeBtn from "./like-btn";
 dayjs.extend(relativeTime);
-// components
-import LikeBtn from "../clientComponents/LikeBtn";
 
 interface Props {
   tweet: tweetType;

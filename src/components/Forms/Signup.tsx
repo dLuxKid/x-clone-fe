@@ -1,6 +1,6 @@
 "use client";
 
-import Loader from "../Loader/Loader";
+import Loader from "../loader/loader";
 import { Button } from "../ui/button";
 import { toast } from "react-toastify";
 import { useAuthContext } from "@/context/AuthContext";

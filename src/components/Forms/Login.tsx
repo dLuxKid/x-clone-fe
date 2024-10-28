@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
-import Loader from "../Loader/Loader";
+import Loader from "../loader/loader";
 import { toast } from "react-toastify";
 import { useAuthContext } from "@/context/AuthContext";
 import axiosInstance from "@/functions/client-axios";

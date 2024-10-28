@@ -1,12 +1,10 @@
 "use client";
 
-// react
 import { useState } from "react";
-// components
-import Login from "./Forms/Login";
-import Signup from "./Forms/Signup";
+import Login from "./forms/Login";
+import Signup from "./forms/Signup";
 
-export default function AuthModal() {
+export default function AuthPage() {
   const [formType, setFormType] = useState<"login" | "signup">("login");
 
   return (

@@ -1,25 +1,24 @@
-// context
-import AuthProvider from '@/context/AuthContext';
-// next
-import type { Metadata } from 'next';
-// styles
-import '../style/globals.css';
-// toast
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import AuthProvider from "@/context/AuthContext";
+import type { Metadata } from "next";
+import "../style/globals.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
-  title: 'Twitter',
-}
+  title: {
+    default: "Home / X",
+    template: "%s / X",
+  },
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className='max-w-screen-[1390px] min-h-screen bg-black'>
+      <body className="max-w-screen-[1390px] min-h-screen bg-black">
         <ToastContainer
           position="top-right"
           autoClose={2500}
@@ -31,12 +30,10 @@ export default function RootLayout({
           draggable
           pauseOnHover
           theme="light"
-          className={'h-fit p-4 z-50'}
+          className={"h-fit p-4 z-50"}
         />
-        <AuthProvider>
-          {children}
-        </AuthProvider>
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
-  )
+  );
 }

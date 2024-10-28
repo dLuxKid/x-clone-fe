@@ -1,8 +1,8 @@
 import { fetchTweets } from "@/functions";
-import ComposeTweet from "./clientComponents/ComposeTweet";
-import TweetCard from "./serverComponents/TweetCard";
-import TweetSkeletonLoader from "./Loader/TweetSkeletonLoader";
+import TweetCard from "./tweet-card";
+import TweetSkeletonLoader from "./loader/tweet-skeleton-loader";
 import { tweetType } from "@/types/types";
+import ComposeTweet from "./compose-tweet";
 
 export default async function MainComponent() {
   const { tweets, error } = await fetchTweets();

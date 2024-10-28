@@ -1,8 +1,8 @@
 import { fetchTweets } from "@/functions";
-import TweetCard from "./tweet-card";
-import TweetSkeletonLoader from "./loader/tweet-skeleton-loader";
-import { tweetType } from "@/types/types";
+import Avatar from "./avatar";
 import ComposeTweet from "./compose-tweet";
+import TweetSkeletonLoader from "./loader/tweet-skeleton-loader";
+import TweetCard from "./tweet-card";
 
 export default async function MainComponent() {
   const { tweets, error } = await fetchTweets();
@@ -13,7 +13,7 @@ export default async function MainComponent() {
         Home
       </h1>
       <div className="border-y-[0.5px] px-4 border-gray-600 flex items-start space-x-2 min-h-32 relative py-4">
-        <div className="w-10 h-10 bg-slate-400 rounded-full flex-none"></div>
+        <Avatar size={10} />
         <ComposeTweet />
       </div>
       <div className="flex flex-col">

@@ -2,6 +2,7 @@
 
 import { useAuthContext } from "@/context/AuthContext";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useMemo } from "react";
 import { BiHomeCircle, BiUser } from "react-icons/bi";
 import { BsBell, BsBookmark, BsEnvelope } from "react-icons/bs";
@@ -10,6 +11,8 @@ import { FaXTwitter } from "react-icons/fa6";
 
 export default function LeftSidebarMenu() {
   const { user } = useAuthContext();
+
+  const pathname = usePathname();
 
   const navigation_items = useMemo(
     () => [
@@ -40,7 +43,17 @@ export default function LeftSidebarMenu() {
           <span>
             <item.icon className="h-5 w-5 md:h-7 md:w-7" />
           </span>
-          {item.title && <p>{item.title}</p>}
+          {item.title && (
+            <p
+              className={` ${
+                pathname === item.url
+                  ? "font-bold text-lg md:text-xl"
+                  : "font-normal text-base md:text-lg"
+              }`}
+            >
+              {item.title}
+            </p>
+          )}
         </Link>
       ))}
     </>

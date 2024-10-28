@@ -16,3 +16,18 @@ export async function fetchTweets() {
     return { tweets: null, error: error.message };
   }
 }
+
+export async function fetchProfile(username: string) {
+  try {
+    const {
+      data: {
+        data: { user },
+      },
+    } = await axiosInstance.get(`/user/get-profile/${username}`);
+
+    return user;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
+}

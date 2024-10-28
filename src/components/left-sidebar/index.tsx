@@ -7,11 +7,11 @@ export default function LeftSidebar() {
       <div className="w-full flex flex-col items-stretch h-full md:mt-8 my-4 space-y-4 max-w-[275px]">
         <LeftSidebarMenu />
         <button
-          title="tweet"
+          title="post"
           type="button"
           className="bg-blue-pry my-4 rounded-full p-4 text-xl max-w-[275px] font-semibold text-center hover:bg-opacity-80 transition duration-200"
         >
-          Tweet
+          Post
         </button>
       </div>
       <LeftSidebarProfile />

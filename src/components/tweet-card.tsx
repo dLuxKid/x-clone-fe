@@ -1,4 +1,3 @@
-import { tweetType } from "@/types/types";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { AiOutlineRetweet } from "react-icons/ai";
@@ -13,7 +12,7 @@ interface Props {
 
 export default async function TweetCard({ tweet }: Props) {
   return (
-    <div className="border-b-[0.5px] border-gray-600 flex space-x-4 p-4">
+    <div className="border-b-[0.5px] border-gray-600 flex space-x-3 p-2 md:p-4">
       <div>
         <div className="w-10 h-10 bg-slate-200 rounded-full" />
       </div>
@@ -22,7 +21,7 @@ export default async function TweetCard({ tweet }: Props) {
           <div className="flex items-center space-x-1">
             <div className="font-bold">{tweet.user.displayname}</div>
             <div className="text-gray-500 font-normal">
-              @{tweet.user.username ?? ""}
+              @{tweet.user.username}
             </div>
             <div className="text-gray-500 mt-1">
               <BsDot />
@@ -35,7 +34,7 @@ export default async function TweetCard({ tweet }: Props) {
             <BsThreeDots />
           </div>
         </div>
-        <div className="text-white text-base mt-1">{tweet.text}</div>
+        <div className="text-white text-base mt-0.5">{tweet.text}</div>
         <div className="bg-slate-400 rounded-2xl aspect-square h-96 w-full mt-2"></div>
         <div className="flex justify-between w-full mt-4">
           <div className="p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200">

@@ -13,16 +13,6 @@ interface AuthContextType {
   setUser: React.Dispatch<React.SetStateAction<userType | null>>;
 }
 
-interface userType {
-  _id: string;
-  username: string;
-  displayname: string;
-  email: string;
-  profile_picture?: string;
-  banner_picture?: string;
-  bio?: string;
-}
-
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {

@@ -5,9 +5,21 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import black from "@/assets/black.jpeg";
 import pfp from "@/assets/default-pfp.png";
 import { useAuthContext } from "@/context/AuthContext";
+import { CiLocationOn } from "react-icons/ci";
+import { MdOutlineInsertLink } from "react-icons/md";
+import { PiBalloonLight } from "react-icons/pi";
+import { IoCalendarSharp } from "react-icons/io5";
+import dayjs from "dayjs";
+import { useState } from "react";
 
-export default function ProfilePage({ user: fetchedUser }: { user: userType }) {
+export default function ProfilePage({
+  user: fetchedUser,
+}: {
+  user: userType & { createdAt: Date };
+}) {
   const { user } = useAuthContext();
+
+  const [selectedTab, setSelectedTab] = useState("Posts");
 
   return (
     <main className="min-h-screen w-full max-w-2xl flex flex-col border-x-[0.5px] border-gray-500 text-white mx-auto">
@@ -67,6 +79,72 @@ export default function ProfilePage({ user: fetchedUser }: { user: userType }) {
             @{fetchedUser.username}
           </h4>
         </div>
+        <div className="w-full pt-2">
+          <p className="font-normal text-sm md:text-base text-white whitespace-pre-line">
+            {fetchedUser?.bio || "user bio goes here"}
+          </p>
+        </div>
+        <div className="w-full flex items-center justify-start gap-2 text-gray-500">
+          {fetchedUser?.location && (
+            <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
+              <CiLocationOn className="text-sm" /> {fetchedUser.location}
+            </p>
+          )}
+          {fetchedUser?.profile_url && (
+            <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
+              <MdOutlineInsertLink className="text-sm" />
+              <a href={fetchedUser.profile_url} className="text-blue-pry">
+                {fetchedUser.profile_url}
+              </a>
+            </p>
+          )}
+          {fetchedUser?.dob && (
+            <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
+              <PiBalloonLight className="text-sm" /> {fetchedUser.dob}
+            </p>
+          )}
+
+          <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
+            <IoCalendarSharp className="text-sm" /> Joined{" "}
+            {dayjs(fetchedUser.createdAt).format("DD MMMM")}
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1">
+            <h3 className="font-base md:font-lg font-bold">100</h3>
+            <p className="font-xs md:font-sm text-gray-500">Following</p>
+          </div>
+          <div className="flex items-center gap-1">
+            <h3 className="font-base md:font-lg font-bold">1000</h3>
+            <p className="font-xs md:font-sm text-gray-500">Followers</p>
+          </div>
+        </div>
+      </div>
+      <div className="w-full flex border-b border-b-gray-500">
+        {["Posts", "Replies", "Media"].map((item, i) => (
+          <div
+            key={i}
+            onClick={() => setSelectedTab(item)}
+            className="cursor-pointer px-6 pt-3 hover:bg-white/10 flex-1 flex justify-center items-center"
+          >
+            <div className="flex flex-col gap-3 items-center">
+              <p
+                className={`${
+                  item === selectedTab
+                    ? "text-white font-bold"
+                    : "text-gray-500 font-normal"
+                } text-base md:text-lg px-2`}
+              >
+                {item}
+              </p>
+              <span
+                className={`h-1 w-full mb-0.5 rounded-sm ${
+                  selectedTab === item ? "bg-blue-pry" : ""
+                }`}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </main>
   );

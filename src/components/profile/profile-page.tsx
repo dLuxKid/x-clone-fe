@@ -11,6 +11,7 @@ import { PiBalloonLight } from "react-icons/pi";
 import { IoCalendarSharp } from "react-icons/io5";
 import dayjs from "dayjs";
 import { useState } from "react";
+import EditProfile from "./edit-profile";
 
 export default function ProfilePage({
   user: fetchedUser,
@@ -52,14 +53,7 @@ export default function ProfilePage({
             className={`rounded-full h-32 w-32 object-fill border-[3px] border-black object-center`}
           />
           {user?._id === fetchedUser._id ? (
-            <button
-              title="edit profile"
-              aria-label="edit profile"
-              type="button"
-              className="self-end border-white border rounded-3xl px-6 py-1.5 bg-transparent text-white font-medium text-base md:text-lg mb-4"
-            >
-              Edit profile
-            </button>
+            <EditProfile user={fetchedUser} />
           ) : (
             <button
               title="follow"

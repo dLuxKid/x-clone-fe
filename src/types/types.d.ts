@@ -7,7 +7,7 @@ interface userType {
   banner_picture?: string;
   occupation?: string;
   profile_url?: string;
-  dob?: string;
+  dob?: Date;
   location?: string;
   bio?: string;
 }

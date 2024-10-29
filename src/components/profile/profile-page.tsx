@@ -42,6 +42,8 @@ export default function ProfilePage({
         <Image
           src={fetchedUser.banner_picture || black}
           alt="banner picture"
+          layout="fill"
+          priority
           className="w-full h-full object-fill"
         />
       </div>
@@ -50,6 +52,9 @@ export default function ProfilePage({
           <Image
             src={fetchedUser?.profile_picture || pfp}
             alt="profile picture"
+            width={128}
+            height={128}
+            priority
             className={`rounded-full h-32 w-32 object-fill border-[3px] border-black object-center`}
           />
           {user?._id === fetchedUser._id ? (
@@ -78,7 +83,7 @@ export default function ProfilePage({
             {fetchedUser?.bio || "user bio goes here"}
           </p>
         </div>
-        <div className="w-full flex items-center justify-start gap-2 text-gray-500">
+        <div className="w-full flex items-center justify-start flex-wrap gap-2 text-gray-500">
           {fetchedUser?.location && (
             <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
               <CiLocationOn className="text-sm" /> {fetchedUser.location}
@@ -87,14 +92,25 @@ export default function ProfilePage({
           {fetchedUser?.profile_url && (
             <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
               <MdOutlineInsertLink className="text-sm" />
-              <a href={fetchedUser.profile_url} className="text-blue-pry">
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href={
+                  fetchedUser.profile_url.startsWith("http://") ||
+                  fetchedUser.profile_url.startsWith("https://")
+                    ? fetchedUser.profile_url
+                    : `https://${fetchedUser.profile_url}`
+                }
+                className="text-blue-pry"
+              >
                 {fetchedUser.profile_url}
               </a>
             </p>
           )}
           {fetchedUser?.dob && (
             <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
-              <PiBalloonLight className="text-sm" /> {fetchedUser.dob}
+              <PiBalloonLight className="text-sm" />{" "}
+              {dayjs(new Date(fetchedUser.dob)).format("MMMM DD")}
             </p>
           )}
 

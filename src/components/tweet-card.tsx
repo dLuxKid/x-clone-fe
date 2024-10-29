@@ -1,5 +1,7 @@
+import pfp from "@/assets/default-pfp.png";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import Image from "next/image";
 import { AiOutlineRetweet } from "react-icons/ai";
 import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoShareOutline, IoStatsChart } from "react-icons/io5";
@@ -14,7 +16,14 @@ export default async function TweetCard({ tweet }: Props) {
   return (
     <div className="border-b-[0.5px] border-gray-600 flex space-x-3 p-2 md:p-4">
       <div>
-        <div className="w-10 h-10 bg-slate-200 rounded-full" />
+        <Image
+          src={tweet.user?.profile_picture || pfp}
+          alt="profile picture"
+          loading="lazy"
+          width={10}
+          height={10}
+          className={`rounded-full h-10 w-10 object-fill object-center`}
+        />
       </div>
       <div className="flex flex-col w-full">
         <div className="flex items-center justify-between space-x-1">

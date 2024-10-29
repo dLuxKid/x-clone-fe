@@ -11,6 +11,9 @@ export default function Avatar({ size }: { size: number }) {
     <Image
       src={user?.profile_picture || pfp}
       alt="profile picture"
+      loading="lazy"
+      width={Number(size)}
+      height={Number(size)}
       className={`rounded-full h-${size} w-${size} object-fill object-center`}
     />
   );

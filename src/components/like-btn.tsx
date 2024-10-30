@@ -1,6 +1,6 @@
 "use client";
 
-import { likeTweet, unlikeTweet } from "@/functions";
+// import { likeTweet, unlikeTweet } from "@/functions";
 import { useTransition } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -27,15 +27,15 @@ export default function LikeBtn({
       className="cursor-pointer transition duration-200 flex justify-center items-center gap-2 [&>*:nth-child(1)]:hover:bg-white/10 hover:text-rose-600"
       disabled={isLikePending}
       onClick={() => {
-        if (userid) {
-          startTransition(() => {
-            hasUserLikedTweet
-              ? unlikeTweet(tweetid, userid)
-              : likeTweet(tweetid, userid);
-          });
-        } else {
-          toast("Login to like tweet");
-        }
+        // if (userid) {
+        //   startTransition(() => {
+        //     hasUserLikedTweet
+        //       ? unlikeTweet(tweetid, userid)
+        //       : likeTweet(tweetid, userid);
+        //   });
+        // } else {
+        //   toast("Login to like tweet");
+        // }
       }}
     >
       {hasUserLikedTweet ? (

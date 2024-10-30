@@ -44,7 +44,35 @@ export default async function TweetCard({ tweet }: Props) {
           </div>
         </div>
         <div className="text-white text-base mt-0.5">{tweet.text}</div>
-        <div className="bg-slate-400 rounded-2xl aspect-square h-96 w-full mt-2"></div>
+        {tweet.media && !!tweet.media.length && (
+          <div
+            className={`grid grid-length-${tweet.media.length} rounded-2xl overflow-hidden aspect-square h-96 w-full border-[0.5px] border-gray-900 mt-2`}
+          >
+            {tweet.media.map((media, i) => (
+              <div
+                key={i}
+                className={`w-full h-full  border-[0.5px] border-gray-900 media-${i}`}
+              >
+                {media.includes(".mp4") ? (
+                  <video controls className={`w-full h-full`}>
+                    <source src={media} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                ) : (
+                  <Image
+                    src={media}
+                    alt={`Media ${i + 1}`}
+                    className={`w-full h-full`}
+                    height={100}
+                    objectFit="cover"
+                    width={100}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
         <div className="flex justify-between w-full mt-4">
           <div className="p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200">
             <BsChat />

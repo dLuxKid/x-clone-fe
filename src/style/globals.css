@@ -104,3 +104,35 @@
 .right-section {
   scrollbar-width: none !important;
 }
+
+.media-0 {
+  grid-area: box0;
+}
+
+.media-1 {
+  grid-area: box1;
+}
+
+.media-2 {
+  grid-area: box2;
+}
+
+.media-3 {
+  grid-area: box3;
+}
+
+.grid-length-1 {
+  grid-template-columns: 1fr;
+}
+
+.grid-length-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-length-3 {
+  grid-template-areas: "box0 box1" "box0 box2";
+}
+
+.grid-length-4 {
+  grid-template-areas: "box0 box1" "box2 box3";
+}

@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { cookies } from "next/headers";
+import axiosInstance from "./server-axios";
 
 // export const likeTweet = async (tweetid: string, userid: string) => {
 //   const supabase = createServerActionClient<Database>({ cookies });
@@ -27,20 +27,11 @@ import { cookies } from "next/headers";
 //   revalidatePath("/");
 // };
 
-// export async function sendTweet(tweet: string) {
-//   const supabase = createServerActionClient<Database>({ cookies });
+export async function sendTweet(data: { text: string; media: string[] }) {
+  await axiosInstance.post("/tweet/create-tweet", data);
 
-//   const { data: userData, error: userError } = await supabase.auth.getSession();
+  revalidatePath("/");
+}
 
-//   if (userError) return { userError };
-
-//   const { error } = await supabase.from("tweets").insert({
-//     text: tweet,
-//     id: randomUUID(),
-//     user_id: userData.session?.user.id as string,
-//   });
-
-//   revalidatePath("/");
-
-//   return { error };
-// }
+export const revalidatePathOnClient = async (path?: string) =>
+  revalidatePath(path || "/");

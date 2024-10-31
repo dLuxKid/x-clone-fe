@@ -16,7 +16,6 @@ export default function LeftSidebarMenu() {
 
   const navigation_items = useMemo(
     () => [
-      { title: "", icon: FaXTwitter, url: "" },
       { title: "Home", icon: BiHomeCircle, url: "/home" },
       { title: "Explore", icon: CiSearch, url: "/explore" },
       { title: "Notifications", icon: BsBell, url: "/notifications" },
@@ -25,7 +24,7 @@ export default function LeftSidebarMenu() {
       {
         title: "Profile",
         icon: BiUser,
-        url: user ? `/users/${user.username}` : "/login",
+        url: user ? `/users/${user.username}` : "/auth",
       },
     ],
     [user]
@@ -33,11 +32,16 @@ export default function LeftSidebarMenu() {
 
   return (
     <>
+      <Link href={""} aria-label="home">
+        <div className="pl-5">
+          <FaXTwitter className="h-5 w-5 md:h-7 md:w-7" />
+        </div>
+      </Link>
       {navigation_items.map((item, i) => (
         <Link
           href={item.url}
           key={i}
-          className="hover:bg-white/10 transition duration-200 rounded-3xl py-2 px-4 flex items-center justify-start w-fit space-x-2 text-xl"
+          className="hover:bg-white/10 transition duration-200 rounded-3xl py-2 px-4 flex items-center justify-start w-fit space-x-4 text-xl"
           aria-label={item.title}
         >
           <span>

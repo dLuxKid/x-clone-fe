@@ -81,7 +81,7 @@ export default async function TweetCard({ tweet }: Props) {
             <AiOutlineRetweet />
           </div>
           <LikeBtn
-            tweetid={tweet._id}
+            tweet_id={tweet._id}
             count={0}
             hasUserLikedTweet={false}
             userid={tweet.user._id}

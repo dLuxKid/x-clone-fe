@@ -9,7 +9,7 @@ export default function LeftSidebarProfile() {
   const { user } = useAuthContext();
 
   return (
-    <Link href={`/users/${user?.username}`} className="w-full">
+    <Link href={user ? `/users/${user?.username}` : "/auth"} className="w-full">
       <button
         title="profile"
         className="my-4 w-full max-w-[275px] hover:bg-white/20 bg-transparent rounded-full py-2 px-4 transition duration-200 flex items-center justify-between space-x-2"

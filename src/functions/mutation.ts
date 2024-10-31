@@ -3,29 +3,17 @@
 import { revalidatePath } from "next/cache";
 import axiosInstance from "./server-axios";
 
-// export const likeTweet = async (tweetid: string, userid: string) => {
-//   const supabase = createServerActionClient<Database>({ cookies });
+export const likeTweet = async (tweet_id: string) => {
+  await axiosInstance.post("/like/like-tweet", { tweet_id });
 
-//   await supabase.from("likes").insert({
-//     id: randomUUID(),
-//     tweet_id: tweetid,
-//     user_id: userid,
-//   });
+  revalidatePath("/");
+};
 
-//   revalidatePath("/");
-// };
+export const unlikeTweet = async (tweet_id: string) => {
+  await axiosInstance.delete("/like/unlike-tweet", { data: { tweet_id } });
 
-// export const unlikeTweet = async (tweetid: string, userid: string) => {
-//   const supabase = createServerActionClient<Database>({ cookies });
-
-//   await supabase
-//     .from("likes")
-//     .delete()
-//     .eq("user_id", userid)
-//     .eq("tweet_id", tweetid);
-
-//   revalidatePath("/");
-// };
+  revalidatePath("/");
+};
 
 export async function sendTweet(data: { text: string; media: string[] }) {
   await axiosInstance.post("/tweet/create-tweet", data);

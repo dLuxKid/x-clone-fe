@@ -1,12 +1,12 @@
 "use client";
 
 import axiosInstance from "@/functions/client-axios";
-import { revalidatePathOnClient } from "@/functions/mutation";
+import { revalidatePathOnClient, sendTweet } from "@/functions/mutation";
 import Image from "next/image";
 import { useState } from "react";
 import { GoFileMedia } from "react-icons/go";
 import { MdOutlineCancel } from "react-icons/md";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Loader from "./loader/loader";
 
 export default function ComposeTweet() {
@@ -54,13 +54,12 @@ export default function ComposeTweet() {
     try {
       await axiosInstance.post("/tweet/create-tweet", formData);
       // await sendTweet(formData);
-      revalidatePathOnClient();
 
       setFormData({ text: "", media: [] });
-      // toast.success("post sent successfully");
+      toast.success("post sent successfully");
     } catch (error: any) {
       console.error(error);
-      // toast.error(error.message);
+      toast.error(error.message);
     } finally {
       setPending(false);
     }
@@ -73,6 +72,7 @@ export default function ComposeTweet() {
           type="text"
           name="text"
           disabled={pending}
+          value={formData.text}
           maxLength={150}
           onChange={(e) =>
             setFormData((prev) => ({ ...prev, text: e.target.value }))

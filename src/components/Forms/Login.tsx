@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import Loader from "../loader/loader";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useAuthContext } from "@/context/AuthContext";
 import axiosInstance from "@/functions/client-axios";
 import { setCookie } from "cookies-next";
@@ -39,12 +39,11 @@ export default function Login({ setFormType }: Props) {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    if (!formValues.email || !formValues.password) {
-      setLoading(false);
+    if (!formValues.email || !formValues.password)
       return toast.error("Please fill in values");
-    }
+
+    setLoading(true);
 
     try {
       const {

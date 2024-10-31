@@ -4,7 +4,7 @@ import AuthPage from "@/components/auth-page";
 import PageLoader from "@/components/loader/page-loader";
 import axiosInstance from "@/functions/client-axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 

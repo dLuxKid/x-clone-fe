@@ -122,11 +122,11 @@
 }
 
 .grid-length-1 {
-  grid-template-columns: 1fr;
+  grid-template-areas: "box0 box0" "box0 box0";
 }
 
 .grid-length-2 {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-areas: "box0 box1" "box0 box1";
 }
 
 .grid-length-3 {

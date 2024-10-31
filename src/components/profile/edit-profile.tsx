@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FiUpload } from "react-icons/fi";
 import { MdOutlineCancel } from "react-icons/md";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import Loader from "../loader/loader";
 
 export default function EditProfile({ user }: { user: userType }) {

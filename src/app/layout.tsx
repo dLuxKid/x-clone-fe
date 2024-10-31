@@ -1,8 +1,7 @@
 import AuthProvider from "@/context/AuthContext";
 import type { Metadata } from "next";
 import "../style/globals.css";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -19,19 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="max-w-screen-[1390px] min-h-screen bg-black">
-        <ToastContainer
-          position="top-right"
-          autoClose={2500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-          className={"h-fit p-4 z-50"}
-        />
+        <Toaster richColors className={"h-fit p-4 z-50"} />
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

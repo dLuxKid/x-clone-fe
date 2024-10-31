@@ -3,7 +3,7 @@
 import axiosInstance from "@/functions/client-axios";
 import { useTransition } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 
 interface Props {
   tweet_id: string;

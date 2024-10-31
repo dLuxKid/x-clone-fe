@@ -2,7 +2,7 @@
 
 import Loader from "../loader/loader";
 import { Button } from "../ui/button";
-import { toast } from "react-toastify";
+import { toast } from "sonner";
 import { useAuthContext } from "@/context/AuthContext";
 import { useState } from "react";
 import axiosInstance from "@/functions/client-axios";
@@ -44,12 +44,16 @@ export default function Signup({ setFormType }: Props) {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
 
-    if (!formValues.email || !formValues.password || !formValues.username) {
-      setLoading(false);
+    if (
+      !formValues.email ||
+      !formValues.password ||
+      !formValues.username ||
+      !formValues.displayname
+    )
       return toast.error("Please fill in values");
-    }
+
+    setLoading(true);
 
     try {
       const {

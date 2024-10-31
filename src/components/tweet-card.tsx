@@ -46,15 +46,18 @@ export default async function TweetCard({ tweet }: Props) {
         <div className="text-white text-base mt-0.5">{tweet.text}</div>
         {tweet.media && !!tweet.media.length && (
           <div
-            className={`grid grid-length-${tweet.media.length} rounded-2xl overflow-hidden aspect-square h-96 w-full border-[0.5px] border-gray-900 mt-2`}
+            className={`grid grid-length-${tweet.media.length} rounded-2xl overflow-hidden aspect-square h-96 w-full border-[0.25px] border-gray-900 mt-2`}
           >
             {tweet.media.map((media, i) => (
               <div
                 key={i}
-                className={`w-full h-full  border-[0.5px] border-gray-900 media-${i}`}
+                className={`max-h-96 h-full w-full border-[0.25px] border-gray-900 media-${i} overflow-hidden`}
               >
                 {media.includes(".mp4") ? (
-                  <video controls className={`w-full h-full`}>
+                  <video
+                    controls
+                    className="h-full w-full max-w-full object-cover object-center"
+                  >
                     <source src={media} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
@@ -62,9 +65,8 @@ export default async function TweetCard({ tweet }: Props) {
                   <Image
                     src={media}
                     alt={`Media ${i + 1}`}
-                    className={`w-full h-full`}
+                    className={`w-full max-w-full h-full object-cover object-center`}
                     height={100}
-                    objectFit="cover"
                     width={100}
                   />
                 )}

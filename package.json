@@ -6,10 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "introspect": "drizzle-kit introspect:pg",
-    "generate": "drizzle-kit generate:pg",
-    "migrate": "npx bun run src/lib/db/migrate.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.4",
@@ -26,7 +23,7 @@
     "eslint": "8.47.0",
     "eslint-config-next": "^15.0.1",
     "lucide-react": "^0.276.0",
-    "next": "^15.0.1",
+    "next": "^15.0.2",
     "postcss": "8.4.28",
     "react": "^18.3.1",
     "react-datepicker": "^7.5.0",

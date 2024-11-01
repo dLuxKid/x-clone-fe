@@ -81,12 +81,12 @@ export default function ComposeTweet() {
           className="w-full bg-transparent pt-6 outline-none text-lg placeholder:text-gray-600 resize-y"
         />
         {!!formData.media.length && (
-          <div className="flex items-center justify-start gap-2 w-full overflow-x-auto h-full min-h-[240px] right-section">
+          <div className="flex items-center justify-start gap-2 w-full overflow-x-scroll h-full min-h-[240px] right-section">
             {formData.media.map((url, i) =>
               url.startsWith("data:image/") ? (
                 <div
                   key={i}
-                  className="relative w-[320px] h-[240px] overflow-hidden flex-shrink-0"
+                  className="relative w-full max-w-[320px] h-full flex items-center justify-center max-h-[240px] flex-shrink-0"
                 >
                   <button
                     disabled={pending}
@@ -108,7 +108,7 @@ export default function ComposeTweet() {
               ) : (
                 <div
                   key={i}
-                  className="relative w-[320px] h-[240px] overflow-hidden flex-shrink-0"
+                  className="relative w-full max-w-[320px] h-full flex items-center justify-center max-h-[240px] overflow-hidden flex-shrink-0"
                 >
                   <button
                     disabled={pending}

@@ -15,11 +15,11 @@ export const unlikeTweet = async (tweet_id: string) => {
   revalidatePath("/");
 };
 
-export async function sendTweet(data: { text: string; media: string[] }) {
-  await axiosInstance.post("/tweet/create-tweet", data);
+export const sendTweet = async (formData: {
+  text: string;
+  media: string[];
+}) => {
+  await axiosInstance.post("/tweet/create-tweet", formData);
 
   revalidatePath("/");
-}
-
-export const revalidatePathOnClient = async (path?: string) =>
-  revalidatePath(path || "/");
+};

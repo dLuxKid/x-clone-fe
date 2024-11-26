@@ -6,6 +6,7 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoShareOutline, IoStatsChart } from "react-icons/io5";
 import LikeBtn from "./like-btn";
+import { formatDuration } from "@/lib/utils";
 dayjs.extend(relativeTime);
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
 export default async function TweetCard({ tweet }: Props) {
   return (
     <div className="border-b-[0.5px] border-gray-600 flex space-x-3 p-2 md:p-4">
-      <div>
+      <div className="size-10 flex-1">
         <Image
           src={tweet.user?.profile_picture || pfp}
           alt="profile picture"
@@ -27,16 +28,18 @@ export default async function TweetCard({ tweet }: Props) {
       </div>
       <div className="flex flex-col w-full">
         <div className="flex items-center justify-between space-x-1">
-          <div className="flex items-center space-x-1">
-            <div className="font-bold">{tweet.user.displayname}</div>
-            <div className="text-gray-500 font-normal">
+          <div className="flex items-center space-x-0.5 sm:space-x-1">
+            <div className="font-bold text-sm sm:text-base">
+              {tweet.user.displayname}
+            </div>
+            <div className="text-gray-500 font-normal text-sm sm:text-base">
               @{tweet.user.username}
             </div>
-            <div className="text-gray-500 mt-1">
+            <div className="text-gray-500 mt-1 text-xs sm:text-sm">
               <BsDot />
             </div>
-            <div className="text-gray-500">
-              {dayjs(tweet.createdAt).fromNow()}
+            <div className="text-gray-500 text-xs sm:text-sm">
+              {formatDuration(tweet.createdAt.toString())}
             </div>
           </div>
           <div className="rounded-full p-2 hover:bg-white/20 cursor-pointer">

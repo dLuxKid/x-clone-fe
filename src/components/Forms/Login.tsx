@@ -66,6 +66,7 @@ export default function Login({ setFormType }: Props) {
         username,
         displayname,
       });
+
       router.push("/");
       toast.success("Login successful");
     } catch (error: any) {

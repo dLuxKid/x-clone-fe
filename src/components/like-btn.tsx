@@ -1,5 +1,6 @@
 "use client";
 
+import { likeTweet, unlikeTweet } from "@/functions";
 import axiosInstance from "@/functions/client-axios";
 import { useTransition } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
@@ -29,11 +30,7 @@ export default function LikeBtn({
       onClick={async () => {
         if (userid) {
           startTransition(async () => {
-            hasUserLikedTweet
-              ? await axiosInstance.delete("/like/unlike-tweet", {
-                  data: { tweet_id },
-                })
-              : await axiosInstance.post("/like/like-tweet", { tweet_id });
+            hasUserLikedTweet ? unlikeTweet(tweet_id) : likeTweet(tweet_id);
           });
         } else {
           toast("Login to like tweet");

@@ -1,8 +1,8 @@
 "use client";
 
-import axiosInstance from "@/functions/client-axios";
-import { revalidatePathOnClient, sendTweet } from "@/functions/mutation";
+import { sendTweet } from "@/functions/mutation";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { GoFileMedia } from "react-icons/go";
 import { MdOutlineCancel } from "react-icons/md";
@@ -10,8 +10,9 @@ import { toast } from "sonner";
 import Loader from "./loader/loader";
 
 export default function ComposeTweet() {
-  const [pending, setPending] = useState<boolean>(false);
+  const router = useRouter();
 
+  const [pending, setPending] = useState<boolean>(false);
   const [formData, setFormData] = useState<{ text: string; media: string[] }>({
     text: "",
     media: [],
@@ -52,8 +53,7 @@ export default function ComposeTweet() {
     setPending(true);
 
     try {
-      await axiosInstance.post("/tweet/create-tweet", formData);
-      // await sendTweet(formData);
+      await sendTweet(formData);
 
       setFormData({ text: "", media: [] });
       toast.success("post sent successfully");
@@ -78,7 +78,7 @@ export default function ComposeTweet() {
             setFormData((prev) => ({ ...prev, text: e.target.value }))
           }
           placeholder="What's happening?!"
-          className="w-full bg-transparent pt-6 outline-none text-lg placeholder:text-gray-600 resize-y"
+          className="w-full bg-transparent pt-6 outline-none border-none ring-0 text-lg placeholder:text-gray-600 resize-y"
         />
         {!!formData.media.length && (
           <div className="flex items-center justify-start gap-2 w-full overflow-x-scroll h-full min-h-[240px] right-section">

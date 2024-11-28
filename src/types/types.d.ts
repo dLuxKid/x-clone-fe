@@ -24,4 +24,8 @@ type tweetType = {
   media: string[];
   createdAt: Date;
   updatedAt: Date;
+  likes_count?: number;
+  replies_count?: number;
+  repost_count?: number;
+  hasLiked: boolean;
 };

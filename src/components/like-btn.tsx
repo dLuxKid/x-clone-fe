@@ -1,7 +1,6 @@
 "use client";
 
 import { likeTweet, unlikeTweet } from "@/functions";
-import axiosInstance from "@/functions/client-axios";
 import { useTransition } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast } from "sonner";
@@ -33,7 +32,7 @@ export default function LikeBtn({
             hasUserLikedTweet ? unlikeTweet(tweet_id) : likeTweet(tweet_id);
           });
         } else {
-          toast("Login to like tweet");
+          toast.info("Login to like tweet");
         }
       }}
     >

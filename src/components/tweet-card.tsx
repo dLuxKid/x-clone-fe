@@ -14,6 +14,8 @@ interface Props {
 }
 
 export default async function TweetCard({ tweet }: Props) {
+  console.log(tweet);
+
   return (
     <div className="border-b-[0.5px] border-gray-600 flex space-x-3 p-2 md:p-4">
       <div className="size-10 flex-1">
@@ -87,8 +89,8 @@ export default async function TweetCard({ tweet }: Props) {
           </div>
           <LikeBtn
             tweet_id={tweet._id}
-            count={0}
-            hasUserLikedTweet={false}
+            count={tweet.likes_count || 0}
+            hasUserLikedTweet={tweet.hasLiked}
             userid={tweet.user._id}
           />
           <div className="p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200">

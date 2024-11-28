@@ -1,14 +1,14 @@
 "use client";
 
 import { likeTweet, unlikeTweet } from "@/functions";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { toast } from "sonner";
 
 interface Props {
   tweet_id: string;
   userid: string;
-  count: number | null;
+  count: number;
   hasUserLikedTweet: boolean;
 }
 
@@ -20,6 +20,9 @@ export default function LikeBtn({
 }: Props) {
   const [isLikePending, startTransition] = useTransition();
 
+  const [liked, setLiked] = useState(hasUserLikedTweet || false);
+  const [noOfLikes, setNoOfLikes] = useState(count);
+
   return (
     <button
       title="like"
@@ -28,21 +31,36 @@ export default function LikeBtn({
       disabled={isLikePending}
       onClick={async () => {
         if (userid) {
+          const newLiked = !liked;
+          const newNoOfLikes = newLiked ? noOfLikes + 1 : noOfLikes - 1;
+
+          setLiked(newLiked);
+          setNoOfLikes(newNoOfLikes);
+
           startTransition(async () => {
-            hasUserLikedTweet ? unlikeTweet(tweet_id) : likeTweet(tweet_id);
+            try {
+              if (newLiked) {
+                await likeTweet(tweet_id);
+              } else {
+                await unlikeTweet(tweet_id);
+              }
+            } catch (error) {
+              setLiked(liked);
+              setNoOfLikes(count);
+            }
           });
         } else {
           toast.info("Login to like tweet");
         }
       }}
     >
-      {hasUserLikedTweet ? (
+      {liked ? (
         <AiFillHeart className="p-2 h-fit w-fit rounded-full text-rose-600" />
       ) : (
         <AiOutlineHeart className="p-2 h-fit w-fit rounded-full" />
       )}
       <span className={`text-sm ${hasUserLikedTweet && "text-rose-600"}`}>
-        {count ?? 0}
+        {noOfLikes ?? 0}
       </span>
     </button>
   );

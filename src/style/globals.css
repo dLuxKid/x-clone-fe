@@ -82,14 +82,14 @@
 
 * {
   /* outline: 1px solid red; */
-  scrollbar-width: thin;
+  scrollbar-width: none !important;
   scroll-behavior: smooth;
   scrollbar-color: #333 transparent;
   -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 *::-webkit-scrollbar {
-  width: thin;
+  width: none !important;
 }
 
 *::-webkit-scrollbar-track {

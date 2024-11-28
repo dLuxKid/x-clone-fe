@@ -14,18 +14,17 @@ interface Props {
 }
 
 export default async function TweetCard({ tweet }: Props) {
-  console.log(tweet);
-
   return (
-    <div className="border-b-[0.5px] border-gray-600 flex space-x-3 p-2 md:p-4">
-      <div className="size-10 flex-1">
+    <div className="border-b-[0.5px] border-gray-600 flex gap-2 md:gap-3 py-4 p-2 md:p-4 w-full">
+      <div className="w-6 h-6 sm:w-10 sm:h-10">
         <Image
           src={tweet.user?.profile_picture || pfp}
           alt="profile picture"
           loading="lazy"
           width={10}
           height={10}
-          className={`rounded-full h-10 w-10 object-fill object-center`}
+          layout="responsive"
+          className={`rounded-full object-cover object-center`}
         />
       </div>
       <div className="flex flex-col w-full">
@@ -51,7 +50,7 @@ export default async function TweetCard({ tweet }: Props) {
         <div className="text-white text-base mt-0.5">{tweet.text}</div>
         {tweet.media && !!tweet.media.length && (
           <div
-            className={`grid grid-length-${tweet.media.length} rounded-2xl overflow-hidden aspect-square h-96 w-full border-[0.25px] border-gray-900 mt-2`}
+            className={`grid grid-length-${tweet.media.length} rounded-2xl overflow-hidden max-h-96 aspect-square border-[0.25px] border-gray-900 mt-2`}
           >
             {tweet.media.map((media, i) => (
               <div

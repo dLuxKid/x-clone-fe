@@ -12,14 +12,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body className="max-w-screen-[1390px] min-h-screen bg-black">
         <Toaster richColors className={"h-fit p-4 z-50"} />
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          {modal}
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );

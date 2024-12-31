@@ -17,6 +17,21 @@ export async function fetchTweets() {
   }
 }
 
+export async function fetchUserPosts(username: string) {
+  try {
+    const {
+      data: {
+        data: { tweets },
+      },
+    } = await axiosInstance.get(`/tweet/get-tweets/${username}`);
+
+    return { tweets, error: null };
+  } catch (error: any) {
+    console.error("Error executing", error);
+    return { tweets: null, error };
+  }
+}
+
 export async function fetchProfile(username: string) {
   try {
     const {

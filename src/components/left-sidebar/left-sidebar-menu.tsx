@@ -32,8 +32,8 @@ export default function LeftSidebarMenu() {
 
   return (
     <>
-      <Link href={""} aria-label="home">
-        <div className="pl-5">
+      <Link href={"/home"} aria-label="home">
+        <div className="pl-5 mb-4">
           <FaXTwitter className="h-5 w-5 md:h-7 md:w-7" />
         </div>
       </Link>
@@ -41,7 +41,7 @@ export default function LeftSidebarMenu() {
         <Link
           href={item.url}
           key={i}
-          className="hover:bg-white/10 transition duration-200 rounded-3xl py-2 px-4 flex items-center justify-start w-fit space-x-4 text-xl"
+          className="hover:bg-white/10 transition duration-200 rounded-full pr-8 py-3 px-4 flex items-center justify-start w-fit space-x-4 text-xl"
           aria-label={item.title}
         >
           <span>

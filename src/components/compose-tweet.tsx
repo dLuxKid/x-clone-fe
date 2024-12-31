@@ -2,16 +2,13 @@
 
 import { sendTweet } from "@/functions/mutation";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { GoFileMedia } from "react-icons/go";
 import { MdOutlineCancel } from "react-icons/md";
 import { toast } from "sonner";
 import Loader from "./loader/loader";
 
-export default function ComposeTweet() {
-  const router = useRouter();
-
+export default function ComposeTweet({ back }: { back?: () => void }) {
   const [pending, setPending] = useState<boolean>(false);
   const [formData, setFormData] = useState<{ text: string; media: string[] }>({
     text: "",
@@ -57,6 +54,8 @@ export default function ComposeTweet() {
 
       setFormData({ text: "", media: [] });
       toast.success("post sent successfully");
+
+      if (back) back();
     } catch (error: any) {
       console.error(error);
       toast.error(error.message);

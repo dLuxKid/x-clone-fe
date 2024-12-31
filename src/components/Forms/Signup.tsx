@@ -59,9 +59,7 @@ export default function Signup({ setFormType }: Props) {
       const {
         data: {
           token,
-          data: {
-            user: { username, displayname, email, _id },
-          },
+          data: { user },
         },
       } = await axiosInstance.post("/auth/signup", {
         email: formValues.email,
@@ -72,12 +70,8 @@ export default function Signup({ setFormType }: Props) {
 
       setCookie("jwt", token);
 
-      setUser({
-        _id,
-        email,
-        username,
-        displayname,
-      });
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
 
       router.push("/");
       toast.success("signup successful");
@@ -147,7 +141,7 @@ export default function Signup({ setFormType }: Props) {
           </p>
           <Button
             className="bg-blue-pry w-fit min-w-[100px] text-white hover:bg-blue-pry px-6 py-2 disabled:cursor-not-allowed"
-            onClick={handleSignup}
+            type="submit"
             disabled={loading}
           >
             {loading ? <Loader /> : "Signup"}

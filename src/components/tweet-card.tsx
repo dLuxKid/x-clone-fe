@@ -7,6 +7,7 @@ import { BsChat, BsDot, BsThreeDots } from "react-icons/bs";
 import { IoShareOutline, IoStatsChart } from "react-icons/io5";
 import LikeBtn from "./like-btn";
 import { formatDuration } from "@/lib/utils";
+import Link from "next/link";
 dayjs.extend(relativeTime);
 
 interface Props {
@@ -15,16 +16,16 @@ interface Props {
 
 export default async function TweetCard({ tweet }: Props) {
   return (
-    <div className="border-b-[0.5px] border-gray-600 flex gap-2 md:gap-3 py-4 p-2 md:p-4 w-full">
-      <div className="w-6 h-6 sm:w-10 sm:h-10">
+    <div className="border-b-[0.5px] border-gray-600 flex gap-2 md:gap-3 py-4 p-2 md:p-4 w-full relative z-0">
+      <div className="w-6 h-6 sm:w-10 sm:h-10 aspect-square overflow-hidden rounded-full cursor-pointer flex">
         <Image
           src={tweet.user?.profile_picture || pfp}
           alt="profile picture"
           loading="lazy"
-          width={10}
-          height={10}
+          width={40}
+          height={40}
           layout="responsive"
-          className={`rounded-full object-cover object-center`}
+          className={`w-full h-full object-cover object-center`}
         />
       </div>
       <div className="flex flex-col w-full">
@@ -55,25 +56,30 @@ export default async function TweetCard({ tweet }: Props) {
             {tweet.media.map((media, i) => (
               <div
                 key={i}
-                className={`max-h-96 h-full w-full border-[0.25px] border-gray-900 media-${i} overflow-hidden`}
+                className={`max-h-96 h-full w-full border-[0.25px] border-gray-900 media-${i} overflow-hidden flex`}
               >
-                {media.includes(".mp4") ? (
-                  <video
-                    controls
-                    className="h-full w-full max-w-full object-cover object-center"
-                  >
-                    <source src={media} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                ) : (
-                  <Image
-                    src={media}
-                    alt={`Media ${i + 1}`}
-                    className={`w-full max-w-full h-full object-cover object-center`}
-                    height={100}
-                    width={100}
-                  />
-                )}
+                <Link
+                  href={`photo/${tweet._id}`}
+                  className="w-full h-full flex"
+                >
+                  {media.includes(".mp4") ? (
+                    <video
+                      controls
+                      className="h-full w-full object-cover object-center"
+                    >
+                      <source src={media} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  ) : (
+                    <Image
+                      src={media}
+                      alt={`Media ${i + 1}`}
+                      className={`w-full h-full object-cover object-center`}
+                      height={100}
+                      width={100}
+                    />
+                  )}
+                </Link>
               </div>
             ))}
           </div>

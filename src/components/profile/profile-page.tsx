@@ -12,21 +12,27 @@ import { IoCalendarSharp } from "react-icons/io5";
 import dayjs from "dayjs";
 import { useState } from "react";
 import EditProfile from "./edit-profile";
+import { useRouter } from "next/navigation";
 
 export default function ProfilePage({
   user: fetchedUser,
+  children,
 }: {
   user: userType & { createdAt: Date };
+  children: React.ReactNode[];
 }) {
+  const router = useRouter();
+
   const { user } = useAuthContext();
 
-  const [selectedTab, setSelectedTab] = useState("Posts");
+  const [selectedTab, setSelectedTab] = useState(0);
 
   return (
     <main className="min-h-screen w-full max-w-2xl flex flex-col border-x-[0.5px] border-gray-500 text-white mx-auto">
       <div className="px-4 py-0.5 w-full flex items-center justify-start gap-4 border-b-gray-500 border-b">
         <div
           title="go back"
+          onClick={() => router.back()}
           className="flex items-center justify-center my-auto p-2 rounded-full hover:bg-white/10 cursor-pointer transition duration-200"
         >
           <IoMdArrowRoundBack className="text-lg md:text-xl" />
@@ -85,19 +91,20 @@ export default function ProfilePage({
         </div>
         <div className="w-full flex items-center justify-start flex-wrap gap-2 text-gray-500">
           {fetchedUser?.location && (
-            <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
+            <p className="flex gap-1 items-center justify-center font-xs md:font-sm">
               <CiLocationOn className="text-sm" /> {fetchedUser.location}
             </p>
           )}
           {fetchedUser?.profile_url && (
-            <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
+            <p className="flex gap-1 items-center justify-center font-xs md:font-sm">
               <MdOutlineInsertLink className="text-sm" />
               <a
                 rel="noopener noreferrer"
                 target="_blank"
                 href={
                   fetchedUser.profile_url.startsWith("http://") ||
-                  fetchedUser.profile_url.startsWith("https://")
+                  fetchedUser.profile_url.startsWith("https://") ||
+                  fetchedUser.profile_url.startsWith("www.")
                     ? fetchedUser.profile_url
                     : `https://${fetchedUser.profile_url}`
                 }
@@ -108,13 +115,13 @@ export default function ProfilePage({
             </p>
           )}
           {fetchedUser?.dob && (
-            <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
+            <p className="flex gap-1 items-center justify-center font-xs md:font-sm">
               <PiBalloonLight className="text-sm" />{" "}
               {dayjs(new Date(fetchedUser.dob)).format("MMMM DD")}
             </p>
           )}
 
-          <p className="flex gap-1 md:gap-2 items-center justify-center font-xs md:font-sm">
+          <p className="flex gap-1 items-center justify-center font-xs md:font-sm">
             <IoCalendarSharp className="text-sm" /> Joined{" "}
             {dayjs(fetchedUser.createdAt).format("DD MMMM")}
           </p>
@@ -134,13 +141,13 @@ export default function ProfilePage({
         {["Posts", "Replies", "Media"].map((item, i) => (
           <div
             key={i}
-            onClick={() => setSelectedTab(item)}
+            onClick={() => setSelectedTab(i)}
             className="cursor-pointer px-6 pt-3 hover:bg-white/10 flex-1 flex justify-center items-center"
           >
             <div className="flex flex-col gap-3 items-center">
               <p
                 className={`${
-                  item === selectedTab
+                  selectedTab === i
                     ? "text-white font-bold"
                     : "text-gray-500 font-normal"
                 } text-base md:text-lg px-2`}
@@ -148,14 +155,15 @@ export default function ProfilePage({
                 {item}
               </p>
               <span
-                className={`h-1 w-full mb-0.5 rounded-sm ${
-                  selectedTab === item ? "bg-blue-pry" : ""
+                className={`h-1 w-full rounded-sm ${
+                  selectedTab === i ? "bg-blue-pry" : ""
                 }`}
               />
             </div>
           </div>
         ))}
       </div>
+      {children[selectedTab]}
     </main>
   );
 }

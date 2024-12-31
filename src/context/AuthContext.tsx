@@ -20,6 +20,14 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [authIsReady, setAuthisReady] = useState<boolean>(false);
 
   const fetchUser = async () => {
+    setAuthisReady(false);
+
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setAuthisReady(true);
+      return setUser(JSON.parse(storedUser));
+    }
+
     try {
       const { data } = await axiosInstance.get("/user/get-user");
 
@@ -32,17 +40,16 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       } = data;
 
       setUser(fetchedUser);
+      localStorage.setItem("user", JSON.stringify(fetchedUser));
     } catch (error: any) {
       setUser(null);
       console.error(error.message);
       toast.error(error.message);
-    } finally {
-      setAuthisReady(true);
     }
+    setAuthisReady(true);
   };
 
   useEffect(() => {
-    setAuthisReady(false);
     fetchUser();
   }, []);
 
